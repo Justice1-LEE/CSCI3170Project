@@ -20,16 +20,18 @@ Before compilation:
 
 - Modify `CSCI3170proj.java` to work on other MySQL server environment
 - In Line 17-19:
-	- String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
-	- String dbUsername = "Group15";
-	- String dbPassword = "CSCI3170";
+```
+- String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
+- String dbUsername = "Group15";
+- String dbPassword = "CSCI3170";
+```
 - Change the above parameters to other environment
 
 For compilation:
-- The jdbc.jar file should be placed in the same directory
+- The `jdbc.jar` file should be placed in the same directory
 
 For execution:
-- java -cp .:jdbc.jar CSCI3170proj
+- `java -cp .:jdbc.jar CSCI3170proj`
 
 ### Operations ###
 
