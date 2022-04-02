@@ -1,7 +1,7 @@
 ## CSCI3170 Group Project
 
 ### Information ###
-Group Number:   15
+**Group Number:   15**
 
 Group Members:  
 - Ji Yi,      1155141508
@@ -26,10 +26,10 @@ Before compilation:
 - Change the above parameters to other environment
 
 For compilation:
-    - The jdbc.jar file should be placed in the same directory
+- The jdbc.jar file should be placed in the same directory
 
 For execution:
-    - java -cp .:jdbc.jar CSCI3170proj
+- java -cp .:jdbc.jar CSCI3170proj
 
 ### Operations ###
 
