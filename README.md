@@ -19,7 +19,7 @@ Methods of compilation and execution:
 Before compilation:
 
 - Modify CSCI3170proj.java to work on other MySQL server environment
-- In Line 17-19,
+- In Line 17-19:
 	- String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
 	- String dbUsername = "Group15";
 	- String dbPassword = "CSCI3170";
