@@ -13,11 +13,12 @@ List of files:  CSCI3170proj.java    -   The main program to communicate with My
 Methods of compilation and execution:
 
 Before compilation:
+
     - Modify CSCI3170proj.java to work on other MySQL server environment
     - In Line 17-19,
-	String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
-	String dbUsername = "Group15";
-	String dbPassword = "CSCI3170";
+	- String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
+	- String dbUsername = "Group15";
+	- String dbPassword = "CSCI3170";
       Change the above parameters to other environment
 
 For compilation:
