@@ -19,7 +19,7 @@ Before compilation:
 	- String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
 	- String dbUsername = "Group15";
 	- String dbPassword = "CSCI3170";
-      Change the above parameters to other environment
+    - Change the above parameters to other environment
 
 For compilation:
     - The jdbc.jar file should be placed in the same directory
