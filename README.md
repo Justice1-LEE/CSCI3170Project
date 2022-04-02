@@ -1,54 +1,29 @@
-### Connect to CSE CUHK environment
+## CSCI3170 Group Project
 
-The connection is only establishable in `linux1.cse.cuhk.edu.hk`
+Group Number:   15
 
-1. Copy whole file to cse machine
-```bash
-scp -r CSCI3170Proj/ {CSE USERNAME}@gw.cse.cuhk.edu.hk:{DIRECTORY}
-```
+Group Members:  Ji Yi,      1155141508
+                Li Hangji,  1155141449
+                Yang Boyu,  1155178392
 
-2. Modify `CSCI3170Proj.java`
+List of files:  CSCI3170proj.java    -   The main program to communicate with MySQL server
+              
 
-```java
-String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
-String dbUsername = "Group15";
-String dbPassword = "CSCI3170";
-```
+Methods of compilation and execution:
 
-3. `make`
+Before compilation:
+    - Modify CSCI3170proj.java to work on other MySQL server environment
+    - In Line 17-19,
+	String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
+	String dbUsername = "Group15";
+	String dbPassword = "CSCI3170";
+      Change the above parameters to other environment
 
-4. Run Java application
-```bash
-java -cp .:jdbc.jar CSCI3170Proj
-```
+For compilation:
+    - The jdbc.jar file should be placed in the same directory
 
-### Create local MySQL environment
-
-Using Docker and create own MySQL server for testing
-
-1. Install Docker
-2. Pull Docker image
-
-```bash
-docker pull centurylink/mysql
-```
-
-3. Run Docker and create container
-
-
-### Run Java in local environment
-
-1. Modify `CSCI3170proj.java`
-
-```java
-String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db15";
-String dbUsername = "Group15";
-String dbPassword = "CSCI3170";
-```
-
-2. `make`
-3. `java -cp .:jdbc.jar CSCI3170proj`
-
+For execution:
+    - java -cp .:jdbc.jar CSCI3170proj
 
 ### Operations ###
 
