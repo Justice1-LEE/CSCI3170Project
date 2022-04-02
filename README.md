@@ -1,5 +1,6 @@
 ## CSCI3170 Group Project
 
+### Information ###
 Group Number:   15
 
 Group Members:  Ji Yi,      1155141508
@@ -8,7 +9,7 @@ Group Members:  Ji Yi,      1155141508
 
 List of files:  CSCI3170proj.java    -   The main program to communicate with MySQL server
               
-
+### Compilation and Deployment ###
 Methods of compilation and execution:
 
 Before compilation:
