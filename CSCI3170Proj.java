@@ -197,8 +197,8 @@ class CSCI3170Proj {
             stmt.executeUpdate(sql);
 
             sql = "create table car_category (" +
-                    "ccid integer not null unique" +
-                    "name varchar(20) not null" +
+                    "ccid integer not null unique," +
+                    "name varchar(20) not null," +
                     "primary key (ccid)," +
                     "check (ccid > 0 and ccid < 10 )" +
                     ")";
