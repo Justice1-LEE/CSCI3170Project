@@ -72,6 +72,7 @@ class CSCI3170Proj {
                         System.out.println("Done. Database is removed");
                     } else if (choice1 == 3) {
                         System.out.print("Type in the Source Data Folder Path: ");
+                        scanner.nextLine();
                         String path = scanner.nextLine();
                         System.out.print("Processing...");
                         loadData(con, path);
