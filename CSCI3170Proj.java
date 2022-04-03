@@ -279,7 +279,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            String[] attributes = line.split("\\s+");
+            String[] attributes = line.split("\t");
             String temp = attributes[0] + ", " + attributes[1] + ", " + attributes[2];
             try {
                 stmt = con.createStatement();
@@ -296,7 +296,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            String[] attributes = line.split("\\s+");
+            String[] attributes = line.split("\t");
             String temp = attributes[0] + ", " + attributes[1] + ", " + attributes[2] + ", " + attributes[3] + ", "
                     + attributes[4];
             try {
@@ -314,7 +314,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            String[] attributes = line.split("\\s+");
+            String[] attributes = line.split("\t");
             String temp = attributes[0] + ", " + attributes[1];
             try {
                 stmt = con.createStatement();
@@ -331,7 +331,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            String[] attributes = line.split("\\s+");
+            String[] attributes = line.split("\t");
             String temp = attributes[2] + ", " + attributes[0] + ", " + attributes[1] + ", " + attributes[3] + ", "
                     + attributes[4];
             try {
@@ -349,7 +349,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            String[] attributes = line.split("\\s+");
+            String[] attributes = line.split("\t");
             String carTemp = attributes[0] + ", " + attributes[2] + ", " + attributes[4] + ", " + attributes[5] + ", "
                     + attributes[6];
             String copyTemp = attributes[0] + ", " + attributes[1];
