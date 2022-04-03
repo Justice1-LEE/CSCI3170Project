@@ -65,7 +65,7 @@ class CSCI3170Proj {
                         // create table schemas in the database
                         System.out.print("Processing...");
                         createTables(con);
-                        Systerm.out.println("Done. Database is initialized.");
+                        System.out.println("Done. Database is initialized.");
                     } else if (choice1 == 2) {
                         System.out.print("Processing...");
                         deleteTables(con);
@@ -177,12 +177,12 @@ class CSCI3170Proj {
             stmt = con.createStatement();
 
             String sql = "create table user_category (" +
-                            "ucid integer not null unique," +
-                            "max integer not null," +
-                            "period integer not null," +
-                            "primary key (ucid)," +
-                            "check (ucid > 0 and ucid < 10 and max > 0 and max < 10 and period > 0 and period < 100)" +
-                        ")";
+                    "ucid integer not null unique," +
+                    "max integer not null," +
+                    "period integer not null," +
+                    "primary key (ucid)," +
+                    "check (ucid > 0 and ucid < 10 and max > 0 and max < 10 and period > 0 and period < 100)" +
+                    ")";
             stmt.executeUpdate(sql);
 
             sql = "create table user (" +
@@ -191,9 +191,9 @@ class CSCI3170Proj {
                     "age integer not null," +
                     "occupation varchar(20) not null," +
                     "ucid integer not null," +
-                    "primary key (uid),"
-                    "check (length(uid) == 12 and age > 10 and age < 100 and ucid > 0 and ucid < 10)"
-                  ")";
+                    "primary key (uid)," +
+                    "check (length(uid) == 12 and age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
+                    ")";
             stmt.executeUpdate(sql);
 
             sql = "create table car_category (" +
@@ -201,7 +201,7 @@ class CSCI3170Proj {
                     "name varchar(20) not null" +
                     "primary key (ccid)," +
                     "check (ccid > 0 and ccid < 10 and length(name) <= 20)" +
-                  ")";
+                    ")";
             stmt.executeUpdate(sql);
 
             sql = "create table car (" +
@@ -212,17 +212,17 @@ class CSCI3170Proj {
                     "ccid integer not null," +
                     "primary key (callnum)," +
                     "check (length(callnum) == 8 and time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
-                  ")";
+                    ")";
             stmt.executeUpdate(sql);
 
             sql = "create table copy (" +
                     "callnum varchar(8) not null unique," +
                     "copynum integer not null," +
                     "primary key (callnum, copynum)," +
-                    "check (length(callnum) == 8 and copynum > 0 and copynum < 10)"
-                  ")";
+                    "check (length(callnum) == 8 and copynum > 0 and copynum < 10)" +
+                    ")";
             stmt.executeUpdate(sql);
-            
+
             // 'return' is a reserved word
             sql = "create tabel rent (" +
                     "uid varchar(10) not null unique," +
@@ -232,7 +232,7 @@ class CSCI3170Proj {
                     "return_date date," +
                     "primary key (uid, callnum, copynum, checkout)" +
                     "check (length(uid) == 10 and length(callnum) == 8 and copynum > 0 and copynum < 10)" +
-                  ")";
+                    ")";
             stmt.executeUpdate(sql);
 
             sql = "create table produce (" +
@@ -240,7 +240,7 @@ class CSCI3170Proj {
                     "callnum varchar(8) not null," +
                     "primary key (cname, callnum)," +
                     "check (length(callnum) == 8)" +
-                  ")";
+                    ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e);
@@ -380,9 +380,9 @@ class CSCI3170Proj {
         try {
             Statement stmt = con.createStatement();
             String query = "SELECT C.callnum, C.name, c.ccname, D.cname, P.copynum " +
-                           "FROM car_category c, car C, copy P, produce D " +
-                           "WHERE c.ccid = C.ccid AND C.callnum = P.callnum AND C.callnum = D.callnum " +
-                           "ORDER by C.callnum";
+                    "FROM car_category c, car C, copy P, produce D " +
+                    "WHERE c.ccid = C.ccid AND C.callnum = P.callnum AND C.callnum = D.callnum " +
+                    "ORDER by C.callnum";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String callnum = result.getString("callnum");
@@ -396,13 +396,11 @@ class CSCI3170Proj {
                                 "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" + copynum + "|");
                     }
                 } else if (choice == 2) {
-                    int size = keyword.length();
                     if (name.contains(keyword)) {
                         System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|"
                                 + copynum + "|");
                     }
                 } else if (choice == 3) {
-                    int size = keyword.length();
                     if (company.contains(keyword)) {
                         System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|"
                                 + copynum + "|");
@@ -420,9 +418,10 @@ class CSCI3170Proj {
         try {
             Statement stmt = con.createStatement();
             String query = "SELECT C.callnum, P.copynum, C.name, D.cname, R.checkout, R.return_date " +
-                           "FROM car C, copy P, produce D, rent R " +
-                           "WHERE C.callnum = P.callnum AND C.callnum = D.callnum AND P.copynum = R.copynum AND R.uid = " + userID + 
-                           " ORDER by R.checkout DESC";
+                    "FROM car C, copy P, produce D, rent R " +
+                    "WHERE C.callnum = P.callnum AND C.callnum = D.callnum AND P.copynum = R.copynum AND R.uid = "
+                    + userID +
+                    " ORDER by R.checkout DESC";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String callnum = result.getString("callnum");
@@ -498,8 +497,8 @@ class CSCI3170Proj {
         try {
             Statement stmt = con.createStatement();
             String query = "SELECT uid, callnum, copynum, checkout " +
-                           "FROM rent " +
-                           "WHERE return_date = NULL AND checkout >= " + startDate + " AND checkout <= " + endDate;
+                    "FROM rent " +
+                    "WHERE return_date = NULL AND checkout >= " + startDate + " AND checkout <= " + endDate;
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String uid = result.getString("uid");
