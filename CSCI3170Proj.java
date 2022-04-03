@@ -224,7 +224,7 @@ class CSCI3170Proj {
             stmt.executeUpdate(sql);
 
             // 'return' is a reserved word
-            sql = "create tabel rent (" +
+            sql = "create table rent (" +
                     "uid varchar(10) not null unique," +
                     "callnum varchar(8) not null," +
                     "copynum integer not null," +
