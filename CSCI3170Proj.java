@@ -192,7 +192,7 @@ class CSCI3170Proj {
                     "occupation varchar(20) not null," +
                     "ucid integer not null," +
                     "primary key (uid)," +
-                    "check (age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
+                    "check (length(uid) = 12 and age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
                     ")";
             stmt.executeUpdate(sql);
 
@@ -200,7 +200,7 @@ class CSCI3170Proj {
                     "ccid integer not null unique," +
                     "name varchar(20) not null," +
                     "primary key (ccid)," +
-                    "check (ccid > 0 and ccid < 10 )" +
+                    "check (length(name) <= 20 and ccid > 0 and ccid < 10 )" +
                     ")";
             stmt.executeUpdate(sql);
 
@@ -211,7 +211,7 @@ class CSCI3170Proj {
                     "time_rent integer not null," +
                     "ccid integer not null," +
                     "primary key (callnum)," +
-                    "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
+                    "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
                     ")";
             stmt.executeUpdate(sql);
 
@@ -219,7 +219,7 @@ class CSCI3170Proj {
                     "callnum varchar(8) not null unique," +
                     "copynum integer not null," +
                     "primary key (callnum, copynum)," +
-                    "check (copynum > 0 and copynum < 10)" +
+                    "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
                     ")";
             stmt.executeUpdate(sql);
 
@@ -231,14 +231,15 @@ class CSCI3170Proj {
                     "checkout date not null," +
                     "return_date date," +
                     "primary key (uid, callnum, copynum, checkout)," +
-                    "check (copynum > 0 and copynum < 10)" +
+                    "check (length(uid) = 12 and length(callnum) = 8 and copynum > 0 and copynum < 10)" +
                     ")";
             stmt.executeUpdate(sql);
 
             sql = "create table produce (" +
                     "cname varchar(25) not null," +
                     "callnum varchar(8) not null," +
-                    "primary key (cname, callnum)" +
+                    "primary key (cname, callnum)," +
+                    "check(length(callnum) = 8)" +
                     ")";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
