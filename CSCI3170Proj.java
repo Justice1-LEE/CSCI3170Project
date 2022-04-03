@@ -230,7 +230,7 @@ class CSCI3170Proj {
                     "copynum integer not null," +
                     "checkout date not null," +
                     "return_date date," +
-                    "primary key (uid, callnum, copynum, checkout)" +
+                    "primary key (uid, callnum, copynum, checkout)," +
                     "check (copynum > 0 and copynum < 10)" +
                     ")";
             stmt.executeUpdate(sql);
