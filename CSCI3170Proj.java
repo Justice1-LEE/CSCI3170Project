@@ -211,7 +211,7 @@ class CSCI3170Proj {
                     "callnum varchar(8) not null unique," +
                     "name varchar(10) not null," +
                     "manufacture date not null," +
-                    "time_rent integer not null," +
+                    "time_rent integer(2) not null," +
                     "ccid integer not null," +
                     "primary key (callnum)," +
                     // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
