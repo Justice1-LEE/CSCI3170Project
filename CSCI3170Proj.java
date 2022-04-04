@@ -427,27 +427,30 @@ class CSCI3170Proj {
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 System.out.println(result.toString());
-                String callnum = result.getString("callnum");
-                String name = result.getString("name");
-                String carCategory = result.getString("ccname");
-                String company = result.getString("cname");
-                int copynum = result.getInt("copynum");
-                if (choice == 1) {
-                    if (callnum.equals(keyword)) {
-                        System.out.println(
-                                "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" + copynum + "|");
-                    }
-                } else if (choice == 2) {
-                    if (name.contains(keyword)) {
-                        System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|"
-                                + copynum + "|");
-                    }
-                } else if (choice == 3) {
-                    if (company.contains(keyword)) {
-                        System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|"
-                                + copynum + "|");
-                    }
-                }
+                // String callnum = result.getString("callnum");
+                // String name = result.getString("name");
+                // String carCategory = result.getString("ccname");
+                // String company = result.getString("cname");
+                // int copynum = result.getInt("copynum");
+                // if (choice == 1) {
+                // if (callnum.equals(keyword)) {
+                // System.out.println(
+                // "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" +
+                // copynum + "|");
+                // }
+                // } else if (choice == 2) {
+                // if (name.contains(keyword)) {
+                // System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
+                // company + "|"
+                // + copynum + "|");
+                // }
+                // } else if (choice == 3) {
+                // if (company.contains(keyword)) {
+                // System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
+                // company + "|"
+                // + copynum + "|");
+                // }
+                // }
             }
         } catch (SQLException e) {
             System.out.println(e);
