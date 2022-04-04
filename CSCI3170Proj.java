@@ -404,10 +404,24 @@ class CSCI3170Proj {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT C.callnum, C.name, c.ccname, D.cname, P.copynum " +
-                    "FROM car_category c, car C, copy P, produce D " +
-                    "WHERE c.ccid = C.ccid AND C.callnum = P.callnum AND C.callnum = D.callnum " +
-                    "ORDER by C.callnum";
+            String query = "SELECT a.callnum, a.name, a.ccname, a.company, b.total_copies - c.rented_copies AS available_copies "
+                    +
+                    "FROM " +
+                    "(SELECT car.callnum, car.name, car_category.ccname, produce.company " +
+                    "FROM car, produce, car_category " +
+                    "WHERE  car.callnum = produce.callnum AND car.ccid = car_category.ccid) a " +
+                    "JOIN " +
+                    "(SELECT callnum, COUNT(copynum) AS total_copies " +
+                    "FROM copy " +
+                    "GROUP BY callnum) b " +
+                    "ON a.callnum = b.callnum " +
+                    "JOIN " +
+                    "(SELECT callnum, COUNT(*) AS rented_copies " +
+                    "FROM rent " +
+                    "WHERE return_date = NULL " +
+                    "GROUP BY callnum) c " +
+                    "ON a.callnum = c.callnum " +
+                    "ORDER BY a.callnum ASC";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String callnum = result.getString("callnum");
