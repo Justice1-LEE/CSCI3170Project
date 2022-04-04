@@ -242,7 +242,6 @@ class CSCI3170Proj {
                     "primary key (callnum)," +
                     "foreign key(ccid) references car_category(ccid)," +
                     "foreign key(callnum) references produce(callnum)," +
-                    "foreign key(copynum) references copy(copynum)," +
                     // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
                     // 0 and ccid < 10)" +
                     "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
@@ -258,7 +257,8 @@ class CSCI3170Proj {
                     "return_date date," +
                     "primary key (uid, callnum, copynum, checkout)," +
                     "foreign key(uid) references user(uid)," +
-                    "foreign key(callnum, copynum) references car(callnum, copynum)," +
+                    "foreign key(callnum) references car(callnum)," +
+                    "foreign key(copynum) references copy(copynum)," +
                     // "foreign key(copynum) references copy(copynum)," +
                     // "check (length(uid) = 12 and length(callnum) = 8 and copynum > 0 and copynum
                     // < 10)" +
