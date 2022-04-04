@@ -22,7 +22,11 @@ class CSCI3170Proj {
             System.out.println("[Error]: Java MySQL DB Driver not found!!");
             System.exit(0);
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
         }
 
         // The sketch of the project
@@ -37,7 +41,13 @@ class CSCI3170Proj {
             System.out.println("4. Exit this program");
 
             System.out.print("Enter Your Choice: ");
-            int choice = scanner.nextInt();
+            int choice = -1;
+            try {
+                choice = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("INVALID INPUT.");
+                continue;
+            }
 
             // Exit this program
             if (choice == 4) {
@@ -55,29 +65,56 @@ class CSCI3170Proj {
                     System.out.println("4. Show number of records in each table");
                     System.out.println("5. Return to the main menu");
                     System.out.print("Enter Your Choice: ");
-                    int choice1 = scanner.nextInt();
+                    int choice1 = -1;
+                    try {
+                        choice1 = scanner.nextInt();
+                    } catch (Exception e) {
+                        System.out.println("INVALID INPUT.");
+                        continue;
+                    }
 
                     if (choice1 == 5) {
                         break;
                     } else if (choice1 == 1) {
                         // create table schemas in the database
                         System.out.print("Processing...");
-                        createTables(con);
+                        try {
+                            createTables(con);
+                        } catch (Exception e) {
+                            System.out.println("fail to create tables.");
+                            continue;
+                        }
                         System.out.println("Done. Database is initialized.");
                     } else if (choice1 == 2) {
                         System.out.print("Processing...");
-                        deleteTables(con);
+                        try {
+                            deleteTables(con);
+                        } catch (Exception e) {
+                            System.out.println("fail to delete tables");
+                            continue;
+                        }
                         System.out.println("Done. Database is removed");
                     } else if (choice1 == 3) {
                         System.out.print("Type in the Source Data Folder Path: ");
                         scanner.nextLine();
                         String path = scanner.nextLine();
                         System.out.print("Processing...");
-                        loadData(con, path);
+                        try {
+                            loadData(con, path);
+                        } catch (Exception e) {
+                            System.out.println("Error: fail to load data.");
+                            continue;
+                        }
                         System.out.println("Done. Data is inputted to the database.");
                     } else if (choice1 == 4) {
                         System.out.println("Number of records in each table:");
-                        showRecords(con);
+                        try {
+                            showRecords(con);
+                        } catch (Exception e) {
+                            System.out.println("fail to show records.");
+                        }
+                    } else {
+                        System.out.println("INVALID INPUT.");
                     }
                 }
             }
@@ -91,32 +128,76 @@ class CSCI3170Proj {
                     System.out.println("2. Show loan record of a user");
                     System.out.println("3. Return to the main menu");
                     System.out.print("Enter Your Choice: ");
-                    int choice2 = scanner.nextInt();
+                    int choice2 = -1;
+                    try {
+                        choice2 = scanner.nextInt();
+                    } catch (Exception e) {
+                        System.out.println("INVALID INPUT.");
+                        continue;
+                    }
                     if (choice2 == 3) {
                         break;
                     } else if (choice2 == 1) {
-                        System.out.println("Choose the Search criterion:");
-                        System.out.println("1. call number");
-                        System.out.println("2. name");
-                        System.out.println("3. company");
-                        System.out.print("Choose the Search criterion: ");
-                        int choice21 = scanner.nextInt();
-                        scanner.nextLine();
-                        System.out.print("Type in the Search keyword:");
-                        String keyword = scanner.nextLine();
-                        if (choice21 == 1) {
-                            searchCar(1, con, keyword);
-                        } else if (choice21 == 2) {
-                            searchCar(2, con, keyword);
-                        } else if (choice21 == 3) {
-                            searchCar(3, con, keyword);
+                        while (true) {
+                            System.out.println("Choose the Search criterion:");
+                            System.out.println("1. call number");
+                            System.out.println("2. name");
+                            System.out.println("3. company");
+                            System.out.print("Choose the Search criterion: ");
+                            int choice21 = -1;
+                            try {
+                                choice21 = scanner.nextInt();
+                                scanner.nextLine();
+                            } catch (Exception e) {
+                                System.out.println("INVALID INPUT.");
+                                continue;
+                            }
+                            System.out.print("Type in the Search keyword:");
+                            String keyword = scanner.nextLine();
+                            if (choice21 == 1) {
+                                try {
+                                    searchCar(1, con, keyword);
+                                } catch (Exception e) {
+                                    System.out.println("fail to search cars.");
+                                    continue;
+                                }
+
+                                break;
+                            } else if (choice21 == 2) {
+                                try {
+                                    searchCar(2, con, keyword);
+                                } catch (Exception e) {
+                                    System.out.println("fail to search cars.");
+                                    continue;
+                                }
+
+                                break;
+                            } else if (choice21 == 3) {
+                                try {
+                                    searchCar(3, con, keyword);
+                                } catch (Exception e) {
+                                    System.out.println("fail to search cars.");
+                                    continue;
+                                }
+
+                                break;
+                            } else {
+                                System.out.println("INVALID INPUT.");
+                            }
                         }
+
                     } else if (choice2 == 2) {
                         System.out.print("Enter The cuser ID: ");
                         scanner.nextLine();
                         String userID = scanner.nextLine();
                         System.out.println("Loan Record:");
-                        showLoan(con, userID);
+                        try {
+                            showLoan(con, userID);
+                        } catch (Exception e) {
+                            System.out.println("fail to show loan record.");
+                            continue;
+                        }
+
                     }
                     System.out.println("End of Query");
                 }
@@ -132,7 +213,13 @@ class CSCI3170Proj {
                     System.out.println("3. List all un-returned car copies which are checked-out within a period");
                     System.out.println("4. Return to the main menu");
                     System.out.print("Enter Your Choice: ");
-                    int choice3 = scanner.nextInt();
+                    int choice3 = -1;
+                    try {
+                        choice3 = scanner.nextInt();
+                    } catch (Exception e) {
+                        System.out.println("INVALID INPUT.");
+                        continue;
+                    }
                     if (choice3 == 4) {
                         break;
                     } else if (choice3 == 1) {
@@ -142,8 +229,16 @@ class CSCI3170Proj {
                         System.out.print("Enter The Call Number: ");
                         // scanner.nextLine();
                         String callNum = scanner.nextLine();
-                        System.out.print("Enter The Copy Number: ");
-                        int copyNum = scanner.nextInt();
+                        int copyNum = -1;
+                        while (true) {
+                            System.out.print("Enter The Copy Number: ");
+                            try {
+                                copyNum = scanner.nextInt();
+                                break;
+                            } catch (Exception e) {
+                                System.out.println("INVALID INPUT.");
+                            }
+                        }
                         if (rentCar(con, userID, callNum, copyNum)) {
                             System.out.println("car renting performed \u001B[32msuccessfully\u001B[0m.");
                         }
@@ -154,8 +249,16 @@ class CSCI3170Proj {
                         System.out.print("Enter The Call Number: ");
                         // scanner.nextLine();
                         String callNum = scanner.nextLine();
-                        System.out.print("Enter The Copy Number: ");
-                        int copyNum = scanner.nextInt();
+                        int copyNum = -1;
+                        while (true) {
+                            System.out.print("Enter The Copy Number: ");
+                            try {
+                                copyNum = scanner.nextInt();
+                                break;
+                            } catch (Exception e) {
+                                System.out.println("INVALID INPUT.");
+                            }
+                        }
                         if (returnCar(con, userID, callNum, copyNum)) {
                             System.out.println("car returning performed \u001B[32msuccessfully\u001B[0m.");
                         }
@@ -167,138 +270,129 @@ class CSCI3170Proj {
                         // scanner.nextLine();
                         String endDate = scanner.nextLine();
                         System.out.println("List of UnReturned Cars:");
-                        listUnreturned(con, startDate, endDate);
+                        try {
+                            listUnreturned(con, startDate, endDate);
+                        } catch (Exception e) {
+                            System.out.println("fail to list unreturned cars");
+                            continue;
+                        }
+
                         System.out.println("End of Query");
                     }
                 }
+            } else {
+                System.out.println("INVALID INPUT.");
             }
         }
         scanner.close();
     }
 
     // create table schemas in the database
-    public static void createTables(Connection con) {
+    public static void createTables(Connection con) throws Exception {
         Statement stmt = null;
-        try {
-            stmt = con.createStatement();
 
-            String sql = "create table user_category (" +
-                    "ucid integer not null," +
-                    "max integer not null," +
-                    "period integer not null," +
-                    "primary key (ucid)," +
-                    "check (ucid > 0 and ucid < 10 and max > 0 and max < 10 and period > 0 and period < 100)" +
-                    ")";
-            stmt.executeUpdate(sql);
+        stmt = con.createStatement();
 
-            sql = "create table user (" +
-                    "uid varchar(12) not null," +
-                    "name varchar(25) not null," +
-                    "age integer not null," +
-                    "occupation varchar(20) not null," +
-                    "ucid integer not null," +
-                    "primary key (uid)," +
-                    "foreign key (ucid) references user_category(ucid)," +
-                    "check (age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
-                    ")";
-            stmt.executeUpdate(sql);
+        String sql = "create table user_category (" +
+                "ucid integer not null," +
+                "max integer not null," +
+                "period integer not null," +
+                "primary key (ucid)," +
+                "check (ucid > 0 and ucid < 10 and max > 0 and max < 10 and period > 0 and period < 100)" +
+                ")";
+        stmt.executeUpdate(sql);
 
-            sql = "create table car_category (" +
-                    "ccid integer not null," +
-                    "ccname varchar(20) not null," +
-                    "primary key (ccid)," +
-                    "check (ccid > 0 and ccid < 10 )" +
-                    ")";
-            stmt.executeUpdate(sql);
+        sql = "create table user (" +
+                "uid varchar(12) not null," +
+                "name varchar(25) not null," +
+                "age integer not null," +
+                "occupation varchar(20) not null," +
+                "ucid integer not null," +
+                "primary key (uid)," +
+                "foreign key (ucid) references user_category(ucid)," +
+                "check (age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
+                ")";
+        stmt.executeUpdate(sql);
 
-            sql = "create table car (" +
-                    "callnum varchar(8) not null," +
-                    "name varchar(10) not null," +
-                    "manufacture date not null," +
-                    "time_rent integer(2) not null," +
-                    "ccid integer not null," +
-                    "primary key (callnum)," +
-                    "foreign key (ccid) references car_category(ccid)," +
-                    "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
-                    ")";
-            stmt.executeUpdate(sql);
+        sql = "create table car_category (" +
+                "ccid integer not null," +
+                "ccname varchar(20) not null," +
+                "primary key (ccid)," +
+                "check (ccid > 0 and ccid < 10 )" +
+                ")";
+        stmt.executeUpdate(sql);
 
-            sql = "create table copy (" +
-                    "callnum varchar(8) not null," +
-                    "copynum integer not null," +
-                    "primary key (callnum, copynum)," +
-                    "foreign key (callnum) references car(callnum)," +
-                    "check (copynum > 0 and copynum < 10)" +
-                    ")";
-            stmt.executeUpdate(sql);
+        sql = "create table car (" +
+                "callnum varchar(8) not null," +
+                "name varchar(10) not null," +
+                "manufacture date not null," +
+                "time_rent integer(2) not null," +
+                "ccid integer not null," +
+                "primary key (callnum)," +
+                "foreign key (ccid) references car_category(ccid)," +
+                "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
+                ")";
+        stmt.executeUpdate(sql);
 
-            sql = "create table produce (" +
-                    "cname varchar(25) not null," +
-                    "callnum varchar(8) not null," +
-                    "primary key (cname, callnum)," +
-                    "foreign key (callnum) references car(callnum)" +
-                    ")";
-            stmt.executeUpdate(sql);
+        sql = "create table copy (" +
+                "callnum varchar(8) not null," +
+                "copynum integer not null," +
+                "primary key (callnum, copynum)," +
+                "foreign key (callnum) references car(callnum)," +
+                "check (copynum > 0 and copynum < 10)" +
+                ")";
+        stmt.executeUpdate(sql);
 
-            sql = "create table rent (" +
-                    "uid varchar(12) not null," +
-                    "callnum varchar(8) not null," +
-                    "copynum integer not null," +
-                    "checkout date not null," +
-                    "return_date date," +
-                    "primary key (uid, callnum, copynum, checkout)," +
-                    "foreign key (uid) references user(uid)," +
-                    "foreign key (callnum, copynum) references copy(callnum, copynum)," +
-                    "check (copynum > 0 and copynum < 10)" +
-                    ")";
-            stmt.executeUpdate(sql);
+        sql = "create table produce (" +
+                "cname varchar(25) not null," +
+                "callnum varchar(8) not null," +
+                "primary key (cname, callnum)," +
+                "foreign key (callnum) references car(callnum)" +
+                ")";
+        stmt.executeUpdate(sql);
 
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+        sql = "create table rent (" +
+                "uid varchar(12) not null," +
+                "callnum varchar(8) not null," +
+                "copynum integer not null," +
+                "checkout date not null," +
+                "return_date date," +
+                "primary key (uid, callnum, copynum, checkout)," +
+                "foreign key (uid) references user(uid)," +
+                "foreign key (callnum, copynum) references copy(callnum, copynum)," +
+                "check (copynum > 0 and copynum < 10)" +
+                ")";
+        stmt.executeUpdate(sql);
+
     }
 
     // delete all table in the database
-    public static void deleteTables(Connection con) {
+    public static void deleteTables(Connection con) throws Exception {
         Statement stmt = null;
-        try {
-            stmt = con.createStatement();
-            stmt.executeUpdate("drop table if exists rent, produce, copy, car, car_category, user, user_category");
 
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
+        stmt = con.createStatement();
+        stmt.executeUpdate("drop table if exists rent, produce, copy, car, car_category, user, user_category");
+
     }
 
     // load data from a dataset to the database
-    public static void loadData(Connection con, String path) {
+    public static void loadData(Connection con, String path) throws Exception {
         Scanner file = null;
         Statement stmt = null;
         // load from user_category.txt
-        try {
-            file = new Scanner(new File(path + "/user_category.txt"));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        file = new Scanner(new File(path + "/user_category.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
             // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = attributes[0] + ", " + attributes[1] + ", " + attributes[2];
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("insert into user_category values (" + temp + ")");
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
+            stmt = con.createStatement();
+            stmt.executeUpdate("insert into user_category values (" + temp + ")");
+
         }
 
         // load from user.txt into user
-        try {
-            file = new Scanner(new File(path + "/user.txt"));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        file = new Scanner(new File(path + "/user.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
             // System.out.println(line);
@@ -307,39 +401,27 @@ class CSCI3170Proj {
                     + "', "
                     + attributes[4];
             // System.out.println(temp);
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("insert into user values (" + temp + ")");
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
+
+            stmt = con.createStatement();
+            stmt.executeUpdate("insert into user values (" + temp + ")");
+
         }
 
         // load from car_category.txt into car_category
-        try {
-            file = new Scanner(new File(path + "/car_category.txt"));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        file = new Scanner(new File(path + "/car_category.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
             // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = attributes[0] + ", '" + attributes[1] + "'";
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("insert into car_category values (" + temp + ")");
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
+
+            stmt = con.createStatement();
+            stmt.executeUpdate("insert into car_category values (" + temp + ")");
+
         }
 
         // load from car.txt into car, copy & produce
-        try {
-            file = new Scanner(new File(path + "/car.txt"));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        file = new Scanner(new File(path + "/car.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
             // System.out.println(line);
@@ -348,28 +430,22 @@ class CSCI3170Proj {
                     + attributes[5] + ", " + attributes[6];
             String copyTemp = "";
             String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("INSERT INTO car VALUES (" + carTemp + ")");
 
-                for (int i = 1; i <= Integer.parseInt(attributes[1]); i++) {
-                    // need to be modified
-                    copyTemp = "'" + attributes[0] + "', " + i;
-                    stmt.executeUpdate("INSERT INTO copy VALUES (" + copyTemp + ")");
-                }
+            stmt = con.createStatement();
+            stmt.executeUpdate("INSERT INTO car VALUES (" + carTemp + ")");
 
-                stmt.executeUpdate("INSERT INTO produce VALUES (" + produceTemp + ")");
-            } catch (SQLException e) {
-                System.out.println(e);
+            for (int i = 1; i <= Integer.parseInt(attributes[1]); i++) {
+                // need to be modified
+                copyTemp = "'" + attributes[0] + "', " + i;
+                stmt.executeUpdate("INSERT INTO copy VALUES (" + copyTemp + ")");
             }
+
+            stmt.executeUpdate("INSERT INTO produce VALUES (" + produceTemp + ")");
+
         }
 
         // load from rent.txt into rent
-        try {
-            file = new Scanner(new File(path + "/rent.txt"));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        file = new Scanner(new File(path + "/rent.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
             // System.out.println(line);
@@ -384,121 +460,113 @@ class CSCI3170Proj {
                         + "', '"
                         + attributes[4] + "'";
             }
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("insert into rent values (" + temp + ")");
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
+
+            stmt = con.createStatement();
+            stmt.executeUpdate("insert into rent values (" + temp + ")");
+
         }
     }
 
     // show the number of records in each table
-    public static void showRecords(Connection con) {
+    public static void showRecords(Connection con) throws Exception {
         String[] tableList = { "user_category", "user", "car_category", "car", "rent", "copy", "produce" };
-        try {
-            Statement stmt = con.createStatement();
-            for (int i = 0; i < tableList.length; i++) {
-                String query = "SELECT COUNT(*) FROM " + tableList[i];
-                ResultSet rs = stmt.executeQuery(query);
-                rs.next();
-                System.out.println(tableList[i] + ": " + rs.getString(1));
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+
+        Statement stmt = con.createStatement();
+        for (int i = 0; i < tableList.length; i++) {
+            String query = "SELECT COUNT(*) FROM " + tableList[i];
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            System.out.println(tableList[i] + ": " + rs.getString(1));
         }
+
     }
 
     // search car according to different search criterion
-    public static void searchCar(int choice, Connection con, String keyword) {
+    public static void searchCar(int choice, Connection con, String keyword) throws Exception {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
-        try {
-            Statement stmt = con.createStatement();
-            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum "
-                    +
-                    "FROM " +
-                    "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
-                    "FROM car, produce, car_category " +
-                    "WHERE car.callnum = produce.callnum AND car.ccid = car_category.ccid) a " +
-                    "INNER JOIN " +
-                    "(SELECT callnum, COUNT(copynum) AS total_copies " +
-                    "FROM copy " +
-                    "GROUP BY callnum) b " +
-                    "ON a.callnum = b.callnum " +
-                    "LEFT JOIN " +
-                    "(SELECT callnum, COUNT(copynum) AS rented_copies " +
-                    "FROM rent " +
-                    "WHERE return_date is NULL " +
-                    "GROUP BY callnum) c " +
-                    "ON a.callnum = c.callnum " +
-                    "ORDER BY a.callnum ASC";
 
-            // String query = "SELECT c.callnum, c.name, p.cname " +
-            // "FROM car c, produce p" +
-            // "WHERE c.callnum = p.callnum ";
-            ResultSet result = stmt.executeQuery(query);
-            while (result.next()) {
-                // System.out.println(result.toString());
-                String callnum = result.getString("callnum");
-                String name = result.getString("name");
-                String carCategory = result.getString("ccname");
-                String company = result.getString("cname");
-                int copynum = result.getInt("copynum");
-                if (choice == 1) {
-                    if (callnum.equals(keyword)) {
-                        System.out.println(
-                                "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" +
-                                        copynum + "|");
-                    }
-                } else if (choice == 2) {
-                    if (name.contains(keyword)) {
-                        System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
-                                company + "|"
-                                + copynum + "|");
-                    }
-                } else if (choice == 3) {
-                    if (company.contains(keyword)) {
-                        System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
-                                company + "|"
-                                + copynum + "|");
-                    }
+        Statement stmt = con.createStatement();
+        String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum "
+                +
+                "FROM " +
+                "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
+                "FROM car, produce, car_category " +
+                "WHERE car.callnum = produce.callnum AND car.ccid = car_category.ccid) a " +
+                "INNER JOIN " +
+                "(SELECT callnum, COUNT(copynum) AS total_copies " +
+                "FROM copy " +
+                "GROUP BY callnum) b " +
+                "ON a.callnum = b.callnum " +
+                "LEFT JOIN " +
+                "(SELECT callnum, COUNT(copynum) AS rented_copies " +
+                "FROM rent " +
+                "WHERE return_date is NULL " +
+                "GROUP BY callnum) c " +
+                "ON a.callnum = c.callnum " +
+                "ORDER BY a.callnum ASC";
+
+        // String query = "SELECT c.callnum, c.name, p.cname " +
+        // "FROM car c, produce p" +
+        // "WHERE c.callnum = p.callnum ";
+        ResultSet result = stmt.executeQuery(query);
+        while (result.next()) {
+            // System.out.println(result.toString());
+            String callnum = result.getString("callnum");
+            String name = result.getString("name");
+            String carCategory = result.getString("ccname");
+            String company = result.getString("cname");
+            int copynum = result.getInt("copynum");
+            if (choice == 1) {
+                if (callnum.toLowerCase().equals(keyword.toLowerCase())) {
+                    System.out.println(
+                            "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" +
+                                    copynum + "|");
+                }
+            } else if (choice == 2) {
+                if (name.toLowerCase().contains(keyword.toLowerCase())) {
+                    System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
+                            company + "|"
+                            + copynum + "|");
+                }
+            } else if (choice == 3) {
+                if (company.toLowerCase().contains(keyword.toLowerCase())) {
+                    System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
+                            company + "|"
+                            + copynum + "|");
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e);
         }
+
     }
 
     // show loan record of a user
-    public static void showLoan(Connection con, String userID) {
+    public static void showLoan(Connection con, String userID) throws Exception {
         System.out.println("|CallNum|CopyNum|Name|Company|Check-out|Returned?|");
-        try {
-            Statement stmt = con.createStatement();
-            String query = "SELECT C.callnum, R.copynum, C.name, D.cname, R.checkout, R.return_date " +
-                    "FROM car C, produce D, rent R " +
-                    "WHERE C.callnum = R.callnum AND R.callnum = D.callnum AND R.uid = '"
-                    + userID +
-                    "' ORDER by R.checkout DESC";
-            ResultSet result = stmt.executeQuery(query);
-            while (result.next()) {
-                String callnum = result.getString("callnum");
-                int copynum = result.getInt("copynum");
-                String name = result.getString("name");
-                String company = result.getString("cname");
-                java.sql.Date checkout = result.getDate("checkout");
-                java.sql.Date return_date = result.getDate("return_date");
-                String returnOrNot = null;
-                if (return_date == null) {
-                    returnOrNot = "No";
-                } else {
-                    returnOrNot = "Yes";
-                }
-                System.out.println("|" + callnum + "|" + copynum + "|" + name + "|" + company + "|"
-                        + checkout.toString() + "|" + returnOrNot + "|");
+
+        Statement stmt = con.createStatement();
+        String query = "SELECT C.callnum, R.copynum, C.name, D.cname, R.checkout, R.return_date " +
+                "FROM car C, produce D, rent R " +
+                "WHERE C.callnum = R.callnum AND R.callnum = D.callnum AND R.uid = '"
+                + userID +
+                "' ORDER by R.checkout DESC";
+        ResultSet result = stmt.executeQuery(query);
+        while (result.next()) {
+            String callnum = result.getString("callnum");
+            int copynum = result.getInt("copynum");
+            String name = result.getString("name");
+            String company = result.getString("cname");
+            java.sql.Date checkout = result.getDate("checkout");
+            java.sql.Date return_date = result.getDate("return_date");
+            String returnOrNot = null;
+            if (return_date == null) {
+                returnOrNot = "No";
+            } else {
+                returnOrNot = "Yes";
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("|" + callnum + "|" + copynum + "|" + name + "|" + company + "|"
+                    + checkout.toString() + "|" + returnOrNot + "|");
         }
+
     }
 
     // rent a car copy
@@ -554,23 +622,21 @@ class CSCI3170Proj {
     }
 
     // list all un-returned car copies which are checked-out within a period
-    public static void listUnreturned(Connection con, String startDate, String endDate) {
+    public static void listUnreturned(Connection con, String startDate, String endDate) throws Exception {
         System.out.println("|UID|CallNum|CopyNum|Checkout|");
-        try {
-            Statement stmt = con.createStatement();
-            String query = "SELECT uid, callnum, copynum, checkout " +
-                    "FROM rent " +
-                    "where return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('01/01/2022','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('04/04/2022','%d/%m/%Y'), '%Y-%m-%d')";
-            ResultSet result = stmt.executeQuery(query);
-            while (result.next()) {
-                String uid = result.getString("uid");
-                String callNum = result.getString("callnum");
-                int copyNum = result.getInt("copynum");
-                java.sql.Date checkout = result.getDate("checkout");
-                System.out.println("|" + uid + "|" + callNum + "|" + copyNum + "|" + checkout.toString() + "|");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
+
+        Statement stmt = con.createStatement();
+        String query = "SELECT uid, callnum, copynum, checkout " +
+                "FROM rent " +
+                "where return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('01/01/2022','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('04/04/2022','%d/%m/%Y'), '%Y-%m-%d')";
+        ResultSet result = stmt.executeQuery(query);
+        while (result.next()) {
+            String uid = result.getString("uid");
+            String callNum = result.getString("callnum");
+            int copyNum = result.getInt("copynum");
+            java.sql.Date checkout = result.getDate("checkout");
+            System.out.println("|" + uid + "|" + callNum + "|" + copyNum + "|" + checkout.toString() + "|");
         }
+
     }
 }
