@@ -299,7 +299,7 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String temp = "'" + attributes[0] + "', '" + attributes[1] + "'', " + attributes[2] + ", '" + attributes[3]
+            String temp = "'" + attributes[0] + "', '" + attributes[1] + "', " + attributes[2] + ", '" + attributes[3]
                     + "', "
                     + attributes[4];
             System.out.println(temp);
