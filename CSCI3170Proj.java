@@ -345,16 +345,15 @@ class CSCI3170Proj {
             String line = file.nextLine();
             // System.out.println(line);
             String[] attributes = line.split("\t");
-            String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
-                    + attributes[5] + ", "
-                    + attributes[6];
+            String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', " + attributes[5] + ", " + attributes[6];
             String copyTemp = "";
             String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
             try {
                 stmt = con.createStatement();
                 stmt.executeUpdate("INSERT INTO car VALUES (" + carTemp + ")");
 
-                for (int i = 1; i <= attributes[1]; i++) {
+                for (int i = 1; i <= integer.parseInt(attributes[1]); i++) {
+                    // need to be modified
                     copyTemp = "'" + attributes[0] + "', " + i;
                     stmt.executeUpdate("INSERT INTO copy VALUES (" + copyTemp + ")");
                 }
