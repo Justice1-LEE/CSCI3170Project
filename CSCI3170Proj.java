@@ -27,10 +27,10 @@ class CSCI3170Proj {
         }
 
         // The sketch of the project
-        System.out.println("Welcome to Car Renting System!\n");
+        System.out.println("Welcome to Car Renting System!");
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("-----Main menu-----");
+            System.out.println("\n-----Main menu-----");
             System.out.println("What kinds of operations would you like to perform?");
             System.out.println("1. Operations for Administrator");
             System.out.println("2. Operations for User");
@@ -345,7 +345,8 @@ class CSCI3170Proj {
             String line = file.nextLine();
             // System.out.println(line);
             String[] attributes = line.split("\t");
-            String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', " + attributes[5] + ", " + attributes[6];
+            String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
+                    + attributes[5] + ", " + attributes[6];
             String copyTemp = "";
             String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
             try {
@@ -414,7 +415,8 @@ class CSCI3170Proj {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum " +
+            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum "
+                    +
                     "FROM " +
                     "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
                     "FROM car, produce, car_category " +
