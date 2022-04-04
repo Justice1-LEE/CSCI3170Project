@@ -220,6 +220,7 @@ class CSCI3170Proj {
                     "callnum varchar(8) not null," +
                     "copynum integer not null," +
                     "primary key (callnum, copynum)," +
+                    "foreign key(callnum) references produce(callnum)," +
                     // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
                     "check (copynum > 0 and copynum < 10)" +
                     ")";
