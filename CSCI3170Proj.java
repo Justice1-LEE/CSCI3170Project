@@ -553,7 +553,8 @@ class CSCI3170Proj {
             Statement stmt = con.createStatement();
             String query = "SELECT uid, callnum, copynum, checkout " +
                     "FROM rent " +
-                    "WHERE return_date is NULL AND checkout >= " + startDate + " AND checkout <= " + endDate;
+                    "WHERE return_date is NULL AND Date(checkout) between Date_format('" + startDate
+                    + "', '%Y-%m-%d)'  and Date_format('" + endDate + "', '%Y-%m-%d)";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String uid = result.getString("uid");
