@@ -467,7 +467,7 @@ class CSCI3170Proj {
             Statement stmt = con.createStatement();
             String query = "SELECT C.callnum, P.copynum, C.name, D.cname, R.checkout, R.return_date " +
                     "FROM car C, copy P, produce D, rent R " +
-                    "WHERE C.callnum = P.callnum AND C.callnum = D.callnum AND P.copynum = R.copynum AND R.uid = '"
+                    "WHERE C.callnum = P.callnum AND C.callnum = D.callnum AND P.copynum = R.copynum AND R.callnum = C.callnum AND R.uid = '"
                     + userID +
                     "' ORDER by R.checkout DESC";
             ResultSet result = stmt.executeQuery(query);
