@@ -5,7 +5,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 // work to do:
-// 1.finish the implementation related database
 // 2.finish the work related to error handling
 // 3.test
 class CSCI3170Proj {
