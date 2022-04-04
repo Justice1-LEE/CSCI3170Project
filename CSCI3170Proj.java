@@ -534,7 +534,7 @@ class CSCI3170Proj {
                 java.util.Date return_date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String qry = "UPDATE rent SET return_date = '" + formatter.format(return_date)
-                        + "' WHERE return_date = NULL AND callnum = '" + callNum + "' AND copynum = " + copyNum
+                        + "' WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = " + copyNum
                         + " AND uid = '" + userID + "'";
                 stmt.executeUpdate(qry);
                 return true;
