@@ -231,7 +231,7 @@ class CSCI3170Proj {
 
             // 'return' is a reserved word
             sql = "create table rent (" +
-                    "uid varchar(10) not null unique," +
+                    "uid varchar(12) not null unique," +
                     "callnum varchar(8) not null," +
                     "copynum integer not null," +
                     "checkout date not null," +
