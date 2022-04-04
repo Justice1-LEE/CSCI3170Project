@@ -216,16 +216,6 @@ class CSCI3170Proj {
                     ")";
             stmt.executeUpdate(sql);
 
-            sql = "create table copy (" +
-                    "callnum varchar(8) not null," +
-                    "copynum integer not null," +
-                    "primary key (callnum, copynum)," +
-                    "foreign key(callnum) references produce(callnum)," +
-                    // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
-                    "check (copynum > 0 and copynum < 10)" +
-                    ")";
-            stmt.executeUpdate(sql);
-
             sql = "create table car_category (" +
                     "ccid integer not null," +
                     "ccname varchar(20) not null," +
@@ -246,6 +236,16 @@ class CSCI3170Proj {
                     // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
                     // 0 and ccid < 10)" +
                     "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
+                    ")";
+            stmt.executeUpdate(sql);
+
+            sql = "create table copy (" +
+                    "callnum varchar(8) not null," +
+                    "copynum integer not null," +
+                    "primary key (callnum, copynum)," +
+                    "foreign key(callnum) references car(callnum)," +
+                    // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
+                    "check (copynum > 0 and copynum < 10)" +
                     ")";
             stmt.executeUpdate(sql);
 
