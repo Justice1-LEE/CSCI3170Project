@@ -224,7 +224,7 @@ class CSCI3170Proj {
                     "ccid integer not null," +
                     "primary key (callnum)," +
                     "foreign key(ccid) references car_category(ccid)," +
-                    "foreign key(callnum) references produce(callnum)" +
+                    "foreign key(callnum) references produce(callnum)," +
                     "foreign key(copynum) references copy(copynum)," +
                     // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
                     // 0 and ccid < 10)" +
