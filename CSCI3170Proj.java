@@ -243,7 +243,7 @@ class CSCI3170Proj {
             sql = "create table produce (" +
                     "cname varchar(25) not null," +
                     "callnum varchar(8) not null," +
-                    "primary key (cname, callnum)" +
+                    "primary key (cname, callnum)," +
                     "foreign key(callnum) references car(callnum)" +
                     // "check(length(callnum) = 8)" +
                     ")";
