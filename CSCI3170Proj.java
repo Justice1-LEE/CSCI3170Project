@@ -208,6 +208,23 @@ class CSCI3170Proj {
                     ")";
             stmt.executeUpdate(sql);
 
+            sql = "create table produce (" +
+                    "cname varchar(25) not null," +
+                    "callnum varchar(8) not null," +
+                    "primary key (cname, callnum)" +
+                    // "check(length(callnum) = 8)" +
+                    ")";
+            stmt.executeUpdate(sql);
+
+            sql = "create table copy (" +
+                    "callnum varchar(8) not null," +
+                    "copynum integer not null," +
+                    "primary key (callnum, copynum)," +
+                    // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
+                    "check (copynum > 0 and copynum < 10)" +
+                    ")";
+            stmt.executeUpdate(sql);
+
             sql = "create table car_category (" +
                     "ccid integer not null," +
                     "ccname varchar(20) not null," +
@@ -232,15 +249,6 @@ class CSCI3170Proj {
                     ")";
             stmt.executeUpdate(sql);
 
-            sql = "create table copy (" +
-                    "callnum varchar(8) not null," +
-                    "copynum integer not null," +
-                    "primary key (callnum, copynum)," +
-                    // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
-                    "check (copynum > 0 and copynum < 10)" +
-                    ")";
-            stmt.executeUpdate(sql);
-
             // 'return' is a reserved word
             sql = "create table rent (" +
                     "uid varchar(12) not null," +
@@ -258,13 +266,6 @@ class CSCI3170Proj {
                     ")";
             stmt.executeUpdate(sql);
 
-            sql = "create table produce (" +
-                    "cname varchar(25) not null," +
-                    "callnum varchar(8) not null," +
-                    "primary key (cname, callnum)" +
-                    // "check(length(callnum) = 8)" +
-                    ")";
-            stmt.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e);
         }
