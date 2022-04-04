@@ -299,7 +299,8 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String temp = attributes[0] + ", " + attributes[1] + ", " + attributes[2] + ", " + attributes[3] + ", "
+            String temp = "'" + attributes[0] + "', '" + attributes[1] + "'', " + attributes[2] + ", '" + attributes[3]
+                    + "', "
                     + attributes[4];
             System.out.println(temp);
             try {
@@ -319,7 +320,7 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String temp = attributes[0] + ", " + attributes[1];
+            String temp = attributes[0] + ", '" + attributes[1] + "'";
             try {
                 stmt = con.createStatement();
                 stmt.executeUpdate("insert into car_category values (" + temp + ")");
@@ -337,8 +338,9 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String temp = attributes[2] + ", " + attributes[0] + ", " + attributes[1] + ", " + attributes[3] + ", "
-                    + attributes[4];
+            String temp = "'" + attributes[2] + "', '" + attributes[0] + "', " + attributes[1] + ", '" + attributes[3]
+                    + "', '"
+                    + attributes[4] + "'";
             try {
                 stmt = con.createStatement();
                 stmt.executeUpdate("insert into rent values (" + temp + ")");
@@ -356,10 +358,11 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String carTemp = attributes[0] + ", " + attributes[2] + ", " + attributes[4] + ", " + attributes[5] + ", "
+            String carTemp = "'" + attributes[0] + ", '" + attributes[2] + "', '" + attributes[4] + "', "
+                    + attributes[5] + ", "
                     + attributes[6];
-            String copyTemp = attributes[0] + ", " + attributes[1];
-            String produceTemp = attributes[2] + ", " + attributes[3];
+            String copyTemp = "'" + attributes[0] + "', " + attributes[1];
+            String produceTemp = "'" + attributes[2] + "', '" + attributes[3] + "'";
             try {
                 stmt = con.createStatement();
                 stmt.executeUpdate("insert into car values (" + carTemp + ")");
