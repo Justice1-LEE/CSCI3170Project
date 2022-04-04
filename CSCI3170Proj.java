@@ -200,8 +200,6 @@ class CSCI3170Proj {
                     "ucid integer not null," +
                     "primary key (uid)," +
                     "foreign key (ucid) references user_category(ucid)," +
-                    // "check (length(uid) = 12 and age > 10 and age < 100 and ucid > 0 and ucid <
-                    // 10)" +
                     "check (age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
                     ")";
             stmt.executeUpdate(sql);
@@ -222,8 +220,6 @@ class CSCI3170Proj {
                     "ccid integer not null," +
                     "primary key (callnum)," +
                     "foreign key (ccid) references car_category(ccid)," +
-                    // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
-                    // 0 and ccid < 10)" +
                     "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
                     ")";
             stmt.executeUpdate(sql);
@@ -233,7 +229,6 @@ class CSCI3170Proj {
                     "copynum integer not null," +
                     "primary key (callnum, copynum)," +
                     "foreign key (callnum) references car(callnum)," +
-                    // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
                     "check (copynum > 0 and copynum < 10)" +
                     ")";
             stmt.executeUpdate(sql);
@@ -243,11 +238,9 @@ class CSCI3170Proj {
                     "callnum varchar(8) not null," +
                     "primary key (cname, callnum)," +
                     "foreign key (callnum) references car(callnum)" +
-                    // "check(length(callnum) = 8)" +
                     ")";
             stmt.executeUpdate(sql);
 
-            // 'return' is a reserved word
             sql = "create table rent (" +
                     "uid varchar(12) not null," +
                     "callnum varchar(8) not null," +
@@ -256,11 +249,7 @@ class CSCI3170Proj {
                     "return_date date," +
                     "primary key (uid, callnum, copynum, checkout)," +
                     "foreign key (uid) references user(uid)," +
-                    // "foreign key(callnum) references car(callnum)," +
                     "foreign key (callnum, copynum) references copy(callnum, copynum)," +
-                    // "foreign key(copynum) references copy(copynum)," +
-                    // "check (length(uid) = 12 and length(callnum) = 8 and copynum > 0 and copynum
-                    // < 10)" +
                     "check (copynum > 0 and copynum < 10)" +
                     ")";
             stmt.executeUpdate(sql);
