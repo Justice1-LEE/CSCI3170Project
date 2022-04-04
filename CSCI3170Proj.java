@@ -348,13 +348,18 @@ class CSCI3170Proj {
             String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
                     + attributes[5] + ", "
                     + attributes[6];
-            String copyTemp = "'" + attributes[0] + "', " + attributes[1];
+            String copyTemp = "";
             String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
             try {
                 stmt = con.createStatement();
-                stmt.executeUpdate("insert into car values (" + carTemp + ")");
-                stmt.executeUpdate("insert into copy values (" + copyTemp + ")");
-                stmt.executeUpdate("insert into produce values (" + produceTemp + ")");
+                stmt.executeUpdate("INSERT INTO car VALUES (" + carTemp + ")");
+
+                for (int i = 1; i <= attributes[1]; i++) {
+                    copyTemp = "'" + attributes[0] + "', " + i;
+                    stmt.executeUpdate("INSERT INTO copy VALUES (" + copyTemp + ")");
+                }
+
+                stmt.executeUpdate("INSERT INTO produce VALUES (" + produceTemp + ")");
             } catch (SQLException e) {
                 System.out.println(e);
             }
