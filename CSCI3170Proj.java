@@ -201,6 +201,7 @@ class CSCI3170Proj {
                     "occupation varchar(20) not null," +
                     "ucid integer not null," +
                     "primary key (uid)," +
+                    "foreign key (ucid) references user_category(ucid)," +
                     // "check (length(uid) = 12 and age > 10 and age < 100 and ucid > 0 and ucid <
                     // 10)" +
                     "check (age > 10 and age < 100 and ucid > 0 and ucid < 10)" +
@@ -222,6 +223,9 @@ class CSCI3170Proj {
                     "time_rent integer(2) not null," +
                     "ccid integer not null," +
                     "primary key (callnum)," +
+                    "foreign key(ccid) references car_category(ccid)," +
+                    "foreign key(callnum) references produce(callnum)" +
+                    "foreign key(copynum) references copy(copynum)," +
                     // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
                     // 0 and ccid < 10)" +
                     "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
@@ -245,6 +249,9 @@ class CSCI3170Proj {
                     "checkout date not null," +
                     "return_date date," +
                     "primary key (uid, callnum, copynum, checkout)," +
+                    "foreign key(uid) references user(uid)," +
+                    "foreign key(callnum, copynum) references car(callnum, copynum)," +
+                    // "foreign key(copynum) references copy(copynum)," +
                     // "check (length(uid) = 12 and length(callnum) = 8 and copynum > 0 and copynum
                     // < 10)" +
                     "check (copynum > 0 and copynum < 10)" +
