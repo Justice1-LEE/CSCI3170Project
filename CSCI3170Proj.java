@@ -210,7 +210,7 @@ class CSCI3170Proj {
 
             sql = "create table car (" +
                     "callnum varchar(8) not null," +
-                    "name varchar(10) not null," +
+                    "ccname varchar(10) not null," +
                     "manufacture date not null," +
                     "time_rent integer(2) not null," +
                     "ccid integer not null," +
