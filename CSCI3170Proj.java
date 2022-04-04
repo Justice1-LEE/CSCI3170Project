@@ -5,8 +5,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 // work to do:
-// 2.finish the work related to error handling
-// 3.test
+// 3.more test
 class CSCI3170Proj {
     public static void main(String[] args) {
         // This part is for getting connection from the database
@@ -39,7 +38,6 @@ class CSCI3170Proj {
             System.out.println("2. Operations for User");
             System.out.println("3. Operations for Manager");
             System.out.println("4. Exit this program");
-
             System.out.print("Enter Your Choice: ");
             int choice = -1;
             try {
@@ -161,7 +159,6 @@ class CSCI3170Proj {
                                     System.out.println("fail to search cars.");
                                     continue;
                                 }
-
                                 break;
                             } else if (choice21 == 2) {
                                 try {
@@ -170,7 +167,6 @@ class CSCI3170Proj {
                                     System.out.println("fail to search cars.");
                                     continue;
                                 }
-
                                 break;
                             } else if (choice21 == 3) {
                                 try {
@@ -179,13 +175,11 @@ class CSCI3170Proj {
                                     System.out.println("fail to search cars.");
                                     continue;
                                 }
-
                                 break;
                             } else {
                                 System.out.println("INVALID INPUT.");
                             }
                         }
-
                     } else if (choice2 == 2) {
                         System.out.print("Enter The cuser ID: ");
                         scanner.nextLine();
@@ -197,7 +191,6 @@ class CSCI3170Proj {
                             System.out.println("fail to show loan record.");
                             continue;
                         }
-
                     }
                     System.out.println("End of Query");
                 }
@@ -227,7 +220,6 @@ class CSCI3170Proj {
                         scanner.nextLine();
                         String userID = scanner.nextLine();
                         System.out.print("Enter The Call Number: ");
-                        // scanner.nextLine();
                         String callNum = scanner.nextLine();
                         int copyNum = -1;
                         while (true) {
@@ -247,7 +239,6 @@ class CSCI3170Proj {
                         scanner.nextLine();
                         String userID = scanner.nextLine();
                         System.out.print("Enter The Call Number: ");
-                        // scanner.nextLine();
                         String callNum = scanner.nextLine();
                         int copyNum = -1;
                         while (true) {
@@ -267,7 +258,6 @@ class CSCI3170Proj {
                         scanner.nextLine();
                         String startDate = scanner.nextLine();
                         System.out.print("Type in the ending date [dd/mm/yyyy]: ");
-                        // scanner.nextLine();
                         String endDate = scanner.nextLine();
                         System.out.println("List of UnReturned Cars:");
                         try {
@@ -369,7 +359,6 @@ class CSCI3170Proj {
     // delete all table in the database
     public static void deleteTables(Connection con) throws Exception {
         Statement stmt = null;
-
         stmt = con.createStatement();
         stmt.executeUpdate("drop table if exists rent, produce, copy, car, car_category, user, user_category");
 
@@ -383,7 +372,6 @@ class CSCI3170Proj {
         file = new Scanner(new File(path + "/user_category.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = attributes[0] + ", " + attributes[1] + ", " + attributes[2];
             stmt = con.createStatement();
@@ -395,13 +383,10 @@ class CSCI3170Proj {
         file = new Scanner(new File(path + "/user.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = "'" + attributes[0] + "', '" + attributes[1] + "', " + attributes[2] + ", '" + attributes[3]
                     + "', "
                     + attributes[4];
-            // System.out.println(temp);
-
             stmt = con.createStatement();
             stmt.executeUpdate("insert into user values (" + temp + ")");
 
@@ -411,10 +396,8 @@ class CSCI3170Proj {
         file = new Scanner(new File(path + "/car_category.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = attributes[0] + ", '" + attributes[1] + "'";
-
             stmt = con.createStatement();
             stmt.executeUpdate("insert into car_category values (" + temp + ")");
 
@@ -424,7 +407,6 @@ class CSCI3170Proj {
         file = new Scanner(new File(path + "/car.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            // System.out.println(line);
             String[] attributes = line.split("\t");
             String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
                     + attributes[5] + ", " + attributes[6];
@@ -435,7 +417,6 @@ class CSCI3170Proj {
             stmt.executeUpdate("INSERT INTO car VALUES (" + carTemp + ")");
 
             for (int i = 1; i <= Integer.parseInt(attributes[1]); i++) {
-                // need to be modified
                 copyTemp = "'" + attributes[0] + "', " + i;
                 stmt.executeUpdate("INSERT INTO copy VALUES (" + copyTemp + ")");
             }
@@ -448,7 +429,6 @@ class CSCI3170Proj {
         file = new Scanner(new File(path + "/rent.txt"));
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = null;
             if (attributes[4].equals("NULL")) {
@@ -470,7 +450,6 @@ class CSCI3170Proj {
     // show the number of records in each table
     public static void showRecords(Connection con) throws Exception {
         String[] tableList = { "user_category", "user", "car_category", "car", "rent", "copy", "produce" };
-
         Statement stmt = con.createStatement();
         for (int i = 0; i < tableList.length; i++) {
             String query = "SELECT COUNT(*) FROM " + tableList[i];
@@ -484,7 +463,6 @@ class CSCI3170Proj {
     // search car according to different search criterion
     public static void searchCar(int choice, Connection con, String keyword) throws Exception {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
-
         Statement stmt = con.createStatement();
         String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum "
                 +
@@ -505,12 +483,8 @@ class CSCI3170Proj {
                 "ON a.callnum = c.callnum " +
                 "ORDER BY a.callnum ASC";
 
-        // String query = "SELECT c.callnum, c.name, p.cname " +
-        // "FROM car c, produce p" +
-        // "WHERE c.callnum = p.callnum ";
         ResultSet result = stmt.executeQuery(query);
         while (result.next()) {
-            // System.out.println(result.toString());
             String callnum = result.getString("callnum");
             String name = result.getString("name");
             String carCategory = result.getString("ccname");
