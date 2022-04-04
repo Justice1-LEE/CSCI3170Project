@@ -414,8 +414,7 @@ class CSCI3170Proj {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum "
-                    +
+            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, if(c.rented_copies is null, b.total_copies, b.total_copies - c.rented_copies) AS copynum " +
                     "FROM " +
                     "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
                     "FROM car, produce, car_category " +
@@ -426,7 +425,7 @@ class CSCI3170Proj {
                     "GROUP BY callnum) b " +
                     "ON a.callnum = b.callnum " +
                     "LEFT JOIN " +
-                    "(SELECT callnum, COUNT(return_date) AS rented_copies " +
+                    "(SELECT callnum, COUNT(copynum) AS rented_copies " +
                     "FROM rent " +
                     "WHERE return_date is NULL " +
                     "GROUP BY callnum) c " +
