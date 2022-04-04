@@ -221,7 +221,7 @@ class CSCI3170Proj {
                     "time_rent integer(2) not null," +
                     "ccid integer not null," +
                     "primary key (callnum)," +
-                    "foreign key(ccid) references car_category(ccid)," +
+                    "foreign key (ccid) references car_category(ccid)," +
                     // "check (length(callnum) = 8 and time_rent >= 0 and time_rent < 100 and ccid >
                     // 0 and ccid < 10)" +
                     "check (time_rent >= 0 and time_rent < 100 and ccid > 0 and ccid < 10)" +
@@ -232,7 +232,7 @@ class CSCI3170Proj {
                     "callnum varchar(8) not null," +
                     "copynum integer not null," +
                     "primary key (callnum, copynum)," +
-                    "foreign key(callnum) references car(callnum)," +
+                    "foreign key (callnum) references car(callnum)," +
                     // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
                     "check (copynum > 0 and copynum < 10)" +
                     ")";
@@ -242,7 +242,7 @@ class CSCI3170Proj {
                     "cname varchar(25) not null," +
                     "callnum varchar(8) not null," +
                     "primary key (cname, callnum)," +
-                    "foreign key(callnum) references car(callnum)" +
+                    "foreign key (callnum) references car(callnum)" +
                     // "check(length(callnum) = 8)" +
                     ")";
             stmt.executeUpdate(sql);
@@ -255,9 +255,9 @@ class CSCI3170Proj {
                     "checkout date not null," +
                     "return_date date," +
                     "primary key (uid, callnum, copynum, checkout)," +
-                    "foreign key(uid) references user(uid)," +
+                    "foreign key (uid) references user(uid)," +
                     // "foreign key(callnum) references car(callnum)," +
-                    "foreign key(callnum, copynum) references copy(callnum, copynum)," +
+                    "foreign key (callnum, copynum) references copy(callnum, copynum)," +
                     // "foreign key(copynum) references copy(copynum)," +
                     // "check (length(uid) = 12 and length(callnum) = 8 and copynum > 0 and copynum
                     // < 10)" +
@@ -304,7 +304,8 @@ class CSCI3170Proj {
                 System.out.println(e);
             }
         }
-        // load from user.txt
+
+        // load from user.txt into user
         try {
             file = new Scanner(new File(path + "/user.txt"));
         } catch (IOException e) {
@@ -325,7 +326,8 @@ class CSCI3170Proj {
                 System.out.println(e);
             }
         }
-        // load from car_category.txt
+
+        // load from car_category.txt into car_category
         try {
             file = new Scanner(new File(path + "/car_category.txt"));
         } catch (IOException e) {
@@ -343,7 +345,33 @@ class CSCI3170Proj {
                 System.out.println(e);
             }
         }
-        // load from rent.txt
+
+        // load from car.txt into car, copy & produce
+        try {
+            file = new Scanner(new File(path + "/car.txt"));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        while (file.hasNextLine()) {
+            String line = file.nextLine();
+            // System.out.println(line);
+            String[] attributes = line.split("\t");
+            String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
+                    + attributes[5] + ", "
+                    + attributes[6];
+            String copyTemp = "'" + attributes[0] + "', " + attributes[1];
+            String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
+            try {
+                stmt = con.createStatement();
+                stmt.executeUpdate("insert into car values (" + carTemp + ")");
+                stmt.executeUpdate("insert into copy values (" + copyTemp + ")");
+                stmt.executeUpdate("insert into produce values (" + produceTemp + ")");
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+
+        // load from rent.txt into rent
         try {
             file = new Scanner(new File(path + "/rent.txt"));
         } catch (IOException e) {
@@ -370,31 +398,6 @@ class CSCI3170Proj {
                 System.out.println(e);
             }
         }
-        // load from car.txt
-        try {
-            file = new Scanner(new File(path + "/car.txt"));
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        while (file.hasNextLine()) {
-            String line = file.nextLine();
-            // System.out.println(line);
-            String[] attributes = line.split("\t");
-            String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
-                    + attributes[5] + ", "
-                    + attributes[6];
-            String copyTemp = "'" + attributes[0] + "', " + attributes[1];
-            String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
-            try {
-                stmt = con.createStatement();
-                stmt.executeUpdate("insert into car values (" + carTemp + ")");
-                stmt.executeUpdate("insert into copy values (" + copyTemp + ")");
-                stmt.executeUpdate("insert into produce values (" + produceTemp + ")");
-            } catch (SQLException e) {
-                System.out.println(e);
-            }
-        }
-
     }
 
     // show the number of records in each table
