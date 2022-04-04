@@ -424,6 +424,7 @@ class CSCI3170Proj {
                     "ORDER BY a.callnum ASC";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
+                System.out.println(result.toString());
                 String callnum = result.getString("callnum");
                 String name = result.getString("name");
                 String carCategory = result.getString("ccname");
