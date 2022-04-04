@@ -352,7 +352,7 @@ class CSCI3170Proj {
                 stmt = con.createStatement();
                 stmt.executeUpdate("INSERT INTO car VALUES (" + carTemp + ")");
 
-                for (int i = 1; i <= integer.parseInt(attributes[1]); i++) {
+                for (int i = 1; i <= Integer.parseInt(attributes[1]); i++) {
                     // need to be modified
                     copyTemp = "'" + attributes[0] + "', " + i;
                     stmt.executeUpdate("INSERT INTO copy VALUES (" + copyTemp + ")");
