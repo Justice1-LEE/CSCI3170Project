@@ -591,7 +591,7 @@ class CSCI3170Proj {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
             return false;
         }
     }
@@ -616,7 +616,7 @@ class CSCI3170Proj {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
             return false;
         }
     }
