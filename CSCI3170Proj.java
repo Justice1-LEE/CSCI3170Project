@@ -178,7 +178,7 @@ class CSCI3170Proj {
             stmt = con.createStatement();
 
             String sql = "create table user_category (" +
-                    "ucid integer not null unique," +
+                    "ucid integer not null," +
                     "max integer not null," +
                     "period integer not null," +
                     "primary key (ucid)," +
@@ -187,7 +187,7 @@ class CSCI3170Proj {
             stmt.executeUpdate(sql);
 
             sql = "create table user (" +
-                    "uid varchar(12) not null unique," +
+                    "uid varchar(12) not null," +
                     "name varchar(25) not null," +
                     "age integer not null," +
                     "occupation varchar(20) not null," +
@@ -200,7 +200,7 @@ class CSCI3170Proj {
             stmt.executeUpdate(sql);
 
             sql = "create table car_category (" +
-                    "ccid integer not null unique," +
+                    "ccid integer not null," +
                     "name varchar(20) not null," +
                     "primary key (ccid)," +
                     "check (ccid > 0 and ccid < 10 )" +
@@ -208,7 +208,7 @@ class CSCI3170Proj {
             stmt.executeUpdate(sql);
 
             sql = "create table car (" +
-                    "callnum varchar(8) not null unique," +
+                    "callnum varchar(8) not null," +
                     "name varchar(10) not null," +
                     "manufacture date not null," +
                     "time_rent integer(2) not null," +
@@ -221,7 +221,7 @@ class CSCI3170Proj {
             stmt.executeUpdate(sql);
 
             sql = "create table copy (" +
-                    "callnum varchar(8) not null unique," +
+                    "callnum varchar(8) not null," +
                     "copynum integer not null," +
                     "primary key (callnum, copynum)," +
                     // "check (length(callnum) = 8 and copynum > 0 and copynum < 10)" +
@@ -231,7 +231,7 @@ class CSCI3170Proj {
 
             // 'return' is a reserved word
             sql = "create table rent (" +
-                    "uid varchar(12) not null unique," +
+                    "uid varchar(12) not null," +
                     "callnum varchar(8) not null," +
                     "copynum integer not null," +
                     "checkout date not null," +
