@@ -115,6 +115,7 @@ class CSCI3170Proj {
                         }
                     } else if (choice2 == 2) {
                         System.out.print("Enter The cuser ID: ");
+                        scanner.nextLine();
                         String userID = scanner.nextLine();
                         System.out.println("Loan Record:");
                         showLoan(con, userID);
