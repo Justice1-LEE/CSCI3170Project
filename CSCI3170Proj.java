@@ -338,9 +338,16 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String temp = "'" + attributes[2] + "', '" + attributes[0] + "', " + attributes[1] + ", " + attributes[3]
-                    + ", "
-                    + attributes[4];
+            String temp = null;
+            if (attributes[4].equals("NULL")) {
+                temp = "'" + attributes[2] + "', '" + attributes[0] + "', " + attributes[1] + ", '" + attributes[3]
+                        + "', "
+                        + attributes[4];
+            } else {
+                temp = "'" + attributes[2] + "', '" + attributes[0] + "', " + attributes[1] + ", '" + attributes[3]
+                        + "', '"
+                        + attributes[4] + "'";
+            }
             try {
                 stmt = con.createStatement();
                 stmt.executeUpdate("insert into rent values (" + temp + ")");
@@ -358,7 +365,7 @@ class CSCI3170Proj {
             String line = file.nextLine();
             System.out.println(line);
             String[] attributes = line.split("\t");
-            String carTemp = "'" + attributes[0] + ", '" + attributes[2] + "', " + attributes[4] + ", "
+            String carTemp = "'" + attributes[0] + ", '" + attributes[2] + "', '" + attributes[4] + "', "
                     + attributes[5] + ", "
                     + attributes[6];
             String copyTemp = "'" + attributes[0] + "', " + attributes[1];
