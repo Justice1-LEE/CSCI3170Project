@@ -5,7 +5,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 // work to do:
-// 0. several problems need to be sovled in createTables
 // 1.finish the implementation related database
 // 2.finish the work related to error handling
 // 3.test
@@ -182,7 +181,6 @@ class CSCI3170Proj {
     public static void createTables(Connection con) {
         Statement stmt = null;
         try {
-            // haven't add foreign key constrains
             stmt = con.createStatement();
 
             String sql = "create table user_category (" +
@@ -522,6 +520,8 @@ class CSCI3170Proj {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String qry = "insert into rent values ('" + userID + "', '" + callNum + "', " + copyNum + ", '"
                         + formatter.format(checkout) + "', NULL)";
+                stmt.executeUpdate(qry);
+                qry = "UPDATE car SET time_rent = time_rent + 1 where callnum = '" + callNum + "'";
                 stmt.executeUpdate(qry);
                 return true;
             }
