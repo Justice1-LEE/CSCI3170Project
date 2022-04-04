@@ -277,7 +277,7 @@ class CSCI3170Proj {
         Statement stmt = null;
         try {
             stmt = con.createStatement();
-            stmt.executeUpdate("drop table if exists rent, car, car_category, copy, produce, user, user_category");
+            stmt.executeUpdate("drop table if exists rent, produce, copy, car, car_category, user, user_category");
 
         } catch (SQLException e) {
             System.out.println(e);
