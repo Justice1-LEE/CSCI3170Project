@@ -553,7 +553,7 @@ class CSCI3170Proj {
             Statement stmt = con.createStatement();
             String query = "SELECT uid, callnum, copynum, checkout " +
                     "FROM rent " +
-                    "where DATE(checkout) between DATE_FORMAT(STR_TO_DATE('01/01/2022','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('04/04/2022','%d/%m/%Y'), '%Y-%m-%d')";
+                    "where return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('01/01/2022','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('04/04/2022','%d/%m/%Y'), '%Y-%m-%d')";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String uid = result.getString("uid");
