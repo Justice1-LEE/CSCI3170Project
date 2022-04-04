@@ -424,9 +424,9 @@ class CSCI3170Proj {
             // "ON a.callnum = c.callnum " +
             // "ORDER BY a.callnum ASC";
 
-            String query = "SELECT car.callnum, car.name, produce.cname " +
-                    "FROM car, produce" +
-                    "WHERE  car.callnum = produce.callnum ";
+            String query = "SELECT c.callnum, c.name, p.cname " +
+                    "FROM car c, produce p" +
+                    "WHERE  c.callnum = p.callnum ";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 System.out.println(result.toString());
