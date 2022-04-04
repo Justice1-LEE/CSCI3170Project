@@ -404,10 +404,10 @@ class CSCI3170Proj {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT a.callnum, a.name, a.ccname, a.company, b.total_copies - c.rented_copies AS available_copies "
+            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, b.total_copies - c.rented_copies AS available_copies "
                     +
                     "FROM " +
-                    "(SELECT car.callnum, car.name, car_category.ccname, produce.company " +
+                    "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
                     "FROM car, produce, car_category " +
                     "WHERE  car.callnum = produce.callnum AND car.ccid = car_category.ccid) a " +
                     "JOIN " +
