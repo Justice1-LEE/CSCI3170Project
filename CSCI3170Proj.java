@@ -102,6 +102,7 @@ class CSCI3170Proj {
                         System.out.println("2. name");
                         System.out.println("3. company");
                         System.out.print("Choose the Search criterion: ");
+                        scanner.nextLine();
                         int choice21 = scanner.nextInt();
                         System.out.print("Type in the Search keyword:");
                         String keyword = scanner.nextLine();
@@ -279,7 +280,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            System.out.println(line);
+            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = attributes[0] + ", " + attributes[1] + ", " + attributes[2];
             try {
@@ -297,7 +298,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            System.out.println(line);
+            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = "'" + attributes[0] + "', '" + attributes[1] + "', " + attributes[2] + ", '" + attributes[3]
                     + "', "
@@ -318,7 +319,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            System.out.println(line);
+            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = attributes[0] + ", '" + attributes[1] + "'";
             try {
@@ -336,7 +337,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            System.out.println(line);
+            // System.out.println(line);
             String[] attributes = line.split("\t");
             String temp = null;
             if (attributes[4].equals("NULL")) {
@@ -363,7 +364,7 @@ class CSCI3170Proj {
         }
         while (file.hasNextLine()) {
             String line = file.nextLine();
-            System.out.println(line);
+            // System.out.println(line);
             String[] attributes = line.split("\t");
             String carTemp = "'" + attributes[0] + "', '" + attributes[2] + "', '" + attributes[4] + "', "
                     + attributes[5] + ", "
