@@ -370,7 +370,7 @@ class CSCI3170Proj {
                     + attributes[5] + ", "
                     + attributes[6];
             String copyTemp = "'" + attributes[0] + "', " + attributes[1];
-            String produceTemp = "'" + attributes[2] + "', '" + attributes[3] + "'";
+            String produceTemp = "'" + attributes[3] + "', '" + attributes[0] + "'";
             try {
                 stmt = con.createStatement();
                 stmt.executeUpdate("insert into car values (" + carTemp + ")");
