@@ -404,48 +404,56 @@ class CSCI3170Proj {
         System.out.println("|Call Num|Name|Car Category|Company|Available No. of Copy|");
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT a.callnum, a.name, a.ccname, a.cname, b.total_copies - c.rented_copies AS available_copies "
-                    +
-                    "FROM " +
-                    "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
+            // String query = "SELECT a.callnum, a.name, a.ccname, a.cname, b.total_copies -
+            // c.rented_copies AS available_copies "
+            // +
+            // "FROM " +
+            // "(SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
+            // "FROM car, produce, car_category " +
+            // "WHERE car.callnum = produce.callnum AND car.ccid = car_category.ccid) a " +
+            // "INNER JOIN " +
+            // "(SELECT callnum, COUNT(copynum) AS total_copies " +
+            // "FROM copy " +
+            // "GROUP BY callnum) b " +
+            // "ON a.callnum = b.callnum " +
+            // "INNER JOIN " +
+            // "(SELECT callnum, COUNT(*) AS rented_copies " +
+            // "FROM rent " +
+            // "WHERE return_date = NULL " +
+            // "GROUP BY callnum) c " +
+            // "ON a.callnum = c.callnum " +
+            // "ORDER BY a.callnum ASC";
+
+            String query = "SELECT car.callnum, car.name, car_category.ccname, produce.cname " +
                     "FROM car, produce, car_category " +
-                    "WHERE  car.callnum = produce.callnum AND car.ccid = car_category.ccid) a " +
-                    "INNER JOIN " +
-                    "(SELECT callnum, COUNT(copynum) AS total_copies " +
-                    "FROM copy " +
-                    "GROUP BY callnum) b " +
-                    "ON a.callnum = b.callnum " +
-                    "INNER JOIN " +
-                    "(SELECT callnum, COUNT(*) AS rented_copies " +
-                    "FROM rent " +
-                    "WHERE return_date = NULL " +
-                    "GROUP BY callnum) c " +
-                    "ON a.callnum = c.callnum " +
-                    "ORDER BY a.callnum ASC";
+                    "WHERE  car.callnum = produce.callnum AND car.ccid = car_category.ccid";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 System.out.println(result.toString());
-                String callnum = result.getString("callnum");
-                String name = result.getString("name");
-                String carCategory = result.getString("ccname");
-                String company = result.getString("cname");
-                int copynum = result.getInt("copynum");
-                if (choice == 1) {
-                    if (callnum.equals(keyword)) {
-                        System.out.println(
-                                "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" + copynum + "|");
-                    }
-                } else if (choice == 2) {
-                    if (name.contains(keyword)) {
-                        System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|"
-                                + copynum + "|");
-                    }
-                } else if (choice == 3) {
-                    if (company.contains(keyword)) {
-                        System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|"
-                                + copynum + "|");
-                    }
-                }
+                // String callnum = result.getString("callnum");
+                // String name = result.getString("name");
+                // String carCategory = result.getString("ccname");
+                // String company = result.getString("cname");
+                // int copynum = result.getInt("copynum");
+                // if (choice == 1) {
+                // if (callnum.equals(keyword)) {
+                // System.out.println(
+                // "|" + callnum + "|" + name + "|" + carCategory + "|" + company + "|" +
+                // copynum + "|");
+                // }
+                // } else if (choice == 2) {
+                // if (name.contains(keyword)) {
+                // System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
+                // company + "|"
+                // + copynum + "|");
+                // }
+                // } else if (choice == 3) {
+                // if (company.contains(keyword)) {
+                // System.out.println("|" + callnum + "|" + name + "|" + carCategory + "|" +
+                // company + "|"
+                // + copynum + "|");
+                // }
+                // }
             }
         } catch (SQLException e) {
             System.out.println(e);
