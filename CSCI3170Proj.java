@@ -139,8 +139,10 @@ class CSCI3170Proj {
                         break;
                     } else if (choice3 == 1) {
                         System.out.print("Enter The User ID: ");
+                        scanner.nextLine();
                         String userID = scanner.nextLine();
                         System.out.print("Enter The Call Number: ");
+                        // scanner.nextLine();
                         String callNum = scanner.nextLine();
                         System.out.print("Enter The Copy Number: ");
                         int copyNum = scanner.nextInt();
@@ -149,8 +151,10 @@ class CSCI3170Proj {
                         }
                     } else if (choice3 == 2) {
                         System.out.print("Enter The User ID: ");
+                        scanner.nextLine();
                         String userID = scanner.nextLine();
                         System.out.print("Enter The Call Number: ");
+                        // scanner.nextLine();
                         String callNum = scanner.nextLine();
                         System.out.print("Enter The Copy Number: ");
                         int copyNum = scanner.nextInt();
@@ -159,8 +163,10 @@ class CSCI3170Proj {
                         }
                     } else if (choice3 == 3) {
                         System.out.print("Type in the \u001B[36mstarting\u001B[0m date [dd/mm/yyyy]: ");
+                        scanner.nextLine();
                         String startDate = scanner.nextLine();
                         System.out.print("Type in the ending date [dd/mm/yyyy]: ");
+                        // scanner.nextLine();
                         String endDate = scanner.nextLine();
                         System.out.println("List of UnReturned Cars:");
                         listUnreturned(con, startDate, endDate);
@@ -496,7 +502,7 @@ class CSCI3170Proj {
     public static boolean rentCar(Connection con, String userID, String callNum, int copyNum) {
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT * FROM rent WHERE return_date = NULL AND callnum = " + callNum + " AND copynum = "
+            String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
                     + copyNum;
             ResultSet result = stmt.executeQuery(query);
             if (result.next()) {
@@ -504,8 +510,8 @@ class CSCI3170Proj {
             } else {
                 java.util.Date checkout = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String qry = "insert into rent values (" + userID + ", " + callNum + ", " + copyNum + ", "
-                        + formatter.format(checkout) + ", NULL)";
+                String qry = "insert into rent values ('" + userID + "', '" + callNum + "', " + copyNum + ", '"
+                        + formatter.format(checkout) + "', NULL)";
                 stmt.executeUpdate(qry);
                 return true;
             }
@@ -519,17 +525,17 @@ class CSCI3170Proj {
     public static boolean returnCar(Connection con, String userID, String callNum, int copyNum) {
         try {
             Statement stmt = con.createStatement();
-            String query = "SELECT * FROM rent WHERE return_date = NULL AND callnum = " + callNum + " AND copynum = "
-                    + copyNum + " AND uid = " + userID;
+            String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
+                    + copyNum + " AND uid = '" + userID + "'";
             ResultSet result = stmt.executeQuery(query);
             if (!result.next()) {
                 return false;
             } else {
                 java.util.Date return_date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String qry = "UPDATE rent SET return_date = " + formatter.format(return_date)
-                        + " WHERE return_date = NULL AND callnum = " + callNum + " AND copynum = " + copyNum
-                        + " AND uid = " + userID;
+                String qry = "UPDATE rent SET return_date = '" + formatter.format(return_date)
+                        + "' WHERE return_date = NULL AND callnum = '" + callNum + "' AND copynum = " + copyNum
+                        + " AND uid = '" + userID + "'";
                 stmt.executeUpdate(qry);
                 return true;
             }
@@ -546,7 +552,7 @@ class CSCI3170Proj {
             Statement stmt = con.createStatement();
             String query = "SELECT uid, callnum, copynum, checkout " +
                     "FROM rent " +
-                    "WHERE return_date = NULL AND checkout >= " + startDate + " AND checkout <= " + endDate;
+                    "WHERE return_date is NULL AND checkout >= '" + startDate + "' AND checkout <= '" + endDate + "'";
             ResultSet result = stmt.executeQuery(query);
             while (result.next()) {
                 String uid = result.getString("uid");
