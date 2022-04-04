@@ -202,7 +202,7 @@ class CSCI3170Proj {
 
             sql = "create table car_category (" +
                     "ccid integer not null," +
-                    "name varchar(20) not null," +
+                    "ccname varchar(20) not null," +
                     "primary key (ccid)," +
                     "check (ccid > 0 and ccid < 10 )" +
                     ")";
