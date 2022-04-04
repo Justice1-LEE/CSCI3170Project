@@ -102,8 +102,8 @@ class CSCI3170Proj {
                         System.out.println("2. name");
                         System.out.println("3. company");
                         System.out.print("Choose the Search criterion: ");
-                        scanner.nextLine();
                         int choice21 = scanner.nextInt();
+                        scanner.nextLine();
                         System.out.print("Type in the Search keyword:");
                         String keyword = scanner.nextLine();
                         if (choice21 == 1) {
