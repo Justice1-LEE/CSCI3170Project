@@ -514,6 +514,7 @@ class CSCI3170Proj {
                     + copyNum;
             ResultSet result = stmt.executeQuery(query);
             if (result.next()) {
+                System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
                 return false;
             } else {
                 java.util.Date checkout = new Date();
@@ -539,6 +540,7 @@ class CSCI3170Proj {
                     + copyNum + " AND uid = '" + userID + "'";
             ResultSet result = stmt.executeQuery(query);
             if (!result.next()) {
+                System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
                 return false;
             } else {
                 java.util.Date return_date = new Date();
