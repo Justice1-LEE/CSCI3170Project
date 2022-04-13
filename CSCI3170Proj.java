@@ -545,7 +545,6 @@ class CSCI3170Proj {
 
     // rent a car copy
     public static boolean rentCar(Connection con, String userID, String callNum, int copyNum) {
-        // time rent in table car
         try {
             Statement stmt = con.createStatement();
             String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
@@ -602,7 +601,9 @@ class CSCI3170Proj {
         Statement stmt = con.createStatement();
         String query = "SELECT uid, callnum, copynum, checkout " +
                 "FROM rent " +
-                "where return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('01/01/2022','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('04/04/2022','%d/%m/%Y'), '%Y-%m-%d')";
+                "where return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('" + startDate +
+                "'','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('" + endDate +
+                "','%d/%m/%Y'), '%Y-%m-%d')";
         ResultSet result = stmt.executeQuery(query);
         while (result.next()) {
             String uid = result.getString("uid");
