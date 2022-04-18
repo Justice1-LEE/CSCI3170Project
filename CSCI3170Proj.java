@@ -610,9 +610,9 @@ class CSCI3170Proj {
         Statement stmt = con.createStatement();
         String query = "SELECT uid, callnum, copynum, checkout " +
                 "FROM rent " +
-                "where return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('" + startDate +
+                "WHERE return_date is NULL AND DATE(checkout) between DATE_FORMAT(STR_TO_DATE('" + startDate +
                 "','%d/%m/%Y'), '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE('" + endDate +
-                "','%d/%m/%Y'), '%Y-%m-%d')";
+                "','%d/%m/%Y'), '%Y-%m-%d') ORDER BY checkout DESC";
         ResultSet result = stmt.executeQuery(query);
         while (result.next()) {
             String uid = result.getString("uid");
@@ -621,6 +621,5 @@ class CSCI3170Proj {
             java.sql.Date checkout = result.getDate("checkout");
             System.out.println("|" + uid + "|" + callNum + "|" + copyNum + "|" + checkout.toString() + "|");
         }
-
     }
 }
