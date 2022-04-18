@@ -577,6 +577,31 @@ class CSCI3170Proj {
         }
     }
     
+    // return a car
+    public static boolean returnCar(Connection con, String userID, String callNum, int copyNum) {
+        try {
+            Statement stmt = con.createStatement();
+            String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
+                    + copyNum + " AND uid = '" + userID + "'";
+            ResultSet result = stmt.executeQuery(query);
+            if (!result.next()) {
+                System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
+                return false;
+            } else {
+                java.util.Date return_date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String qry = "UPDATE rent SET return_date = '" + formatter.format(return_date)
+                        + "' WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = " + copyNum
+                        + " AND uid = '" + userID + "'";
+                stmt.executeUpdate(qry);
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
+            return false;
+        }
+    }
+    
     // list all un-returned car copies which are checked-out within a period
     public static void listUnreturned(Connection con, String startDate, String endDate) throws Exception {
         System.out.println("|UID|CallNum|CopyNum|Checkout|");
