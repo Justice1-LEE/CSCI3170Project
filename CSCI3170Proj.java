@@ -545,7 +545,7 @@ class CSCI3170Proj {
 
     // rent a car copy
     public static boolean rentCar(Connection con, String userID, String callNum, int copyNum) {
-        try {
+        // try {
             Statement stmt = con.createStatement();
             String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
                     + copyNum;
@@ -571,10 +571,10 @@ class CSCI3170Proj {
                 stmt.executeUpdate(qry);
                 return true;
             }
-        } catch (SQLException e) {
-            System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
-            return false;
-        }
+        // } catch (SQLException e) {
+        //     System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
+        //     return false;
+        // }
     }
     
     // return a car
