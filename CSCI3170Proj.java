@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-// work to do:
-// 3.more test
 class CSCI3170Proj {
     public static void main(String[] args) {
         // This part is for getting connection from the database
