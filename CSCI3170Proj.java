@@ -558,26 +558,25 @@ class CSCI3170Proj {
                 ResultSet max = stmt.executeQuery(qry);
                 qry = "SELECT COUNT(*) AS car_rented FROM rent WHERE return_date = NULL GROUP BY uid HAVING uid = " + userID;
                 ResultSet car_rented = stmt.executeQuery(qry);
-                if (car_rented.next().getString("car_rented") == max.next().getString("max")) {
+                if (car_rented.next() && max.next() && car_rented.getString("car_rented") == max.getString("max")) {
                     System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m This user has rented the maximum number of cars.");
                     return false;
-                } else {
-                    java.util.Date checkout = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    qry = "insert into rent values ('" + userID + "', '" + callNum + "', " + copyNum + ", '"
-                            + formatter.format(checkout) + "', NULL)";
-                    stmt.executeUpdate(qry);
-                    qry = "UPDATE car SET time_rent = time_rent + 1 where callnum = '" + callNum + "'";
-                    stmt.executeUpdate(qry);
-                    return true;
                 }
+                java.util.Date checkout = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                qry = "insert into rent values ('" + userID + "', '" + callNum + "', " + copyNum + ", '"
+                        + formatter.format(checkout) + "', NULL)";
+                stmt.executeUpdate(qry);
+                qry = "UPDATE car SET time_rent = time_rent + 1 where callnum = '" + callNum + "'";
+                stmt.executeUpdate(qry);
+                return true;
             }
         } catch (SQLException e) {
             System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
             return false;
         }
     }
-
+    
     // list all un-returned car copies which are checked-out within a period
     public static void listUnreturned(Connection con, String startDate, String endDate) throws Exception {
         System.out.println("|UID|CallNum|CopyNum|Checkout|");
