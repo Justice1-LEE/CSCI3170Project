@@ -554,9 +554,9 @@ class CSCI3170Proj {
                 System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
                 return false;
             } else {
-                String qry = "SELECT max FROM user, user_category WHERE user.ucid = user_category.ucid AND user.uid = " + userID;
+                String qry = "SELECT max FROM user, user_category WHERE user.ucid = user_category.ucid AND user.uid = '" + userID + "'";
                 ResultSet max = stmt.executeQuery(qry);
-                qry = "SELECT COUNT(*) AS car_rented FROM rent WHERE return_date is NULL GROUP BY uid HAVING uid = " + userID;
+                qry = "SELECT COUNT(*) AS car_rented FROM rent WHERE return_date is NULL GROUP BY uid HAVING uid = '" + "'userID";
                 ResultSet car_rented = stmt.executeQuery(qry);
                 if (car_rented.next() && max.next() && car_rented.getString("car_rented").equals(max.getString("max"))) {
                     System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m This user has rented the maximum number of cars.");
