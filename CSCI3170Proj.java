@@ -560,7 +560,7 @@ class CSCI3170Proj {
                 qry = "SELECT COUNT(*) AS car_rented FROM rent WHERE return_date is NULL GROUP BY uid HAVING uid = '" + userID + "'";
                 ResultSet car_rented = stmt2.executeQuery(qry);
                 if (car_rented.next() && max.next() && car_rented.getString("car_rented").equals(max.getString("max"))) {
-                    System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m This user has rented the maximum number of cars.");
+                    System.out.println("[\u001B[31mError\u001B[0m]: This user has rented the maximum number of cars.");
                     return false;
                 }
                 java.util.Date checkout = new Date();
@@ -572,11 +572,8 @@ class CSCI3170Proj {
                 stmt.executeUpdate(qry);
                 return true;
             }
-        // } catch (SQLException e) {
-        //     System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
-        //     return false;
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
             return false;
         }
     }
