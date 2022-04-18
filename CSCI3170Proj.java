@@ -545,7 +545,7 @@ class CSCI3170Proj {
 
     // rent a car copy
     public static boolean rentCar(Connection con, String userID, String callNum, int copyNum) {
-        // try {
+        try {
             Statement stmt = con.createStatement();
             String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
                     + copyNum;
@@ -558,7 +558,7 @@ class CSCI3170Proj {
                 ResultSet max = stmt.executeQuery(qry);
                 qry = "SELECT COUNT(*) AS car_rented FROM rent WHERE return_date is NULL GROUP BY uid HAVING uid = " + userID;
                 ResultSet car_rented = stmt.executeQuery(qry);
-                if (car_rented.next() && max.next() && car_rented.getString("car_rented") == max.getString("max")) {
+                if (car_rented.next() && max.next() && car_rented.getString("car_rented").equals(max.getString("max"))) {
                     System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m This user has rented the maximum number of cars.");
                     return false;
                 }
@@ -571,10 +571,11 @@ class CSCI3170Proj {
                 stmt.executeUpdate(qry);
                 return true;
             }
-        // } catch (SQLException e) {
-        //     System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
-        //     return false;
-        // }
+        } catch (SQLException e) {
+            System.out.println("!!!!!!!!!!!!!");
+            // System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
+            return false;
+        }
     }
     
     // return a car
