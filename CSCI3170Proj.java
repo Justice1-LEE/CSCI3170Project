@@ -554,39 +554,23 @@ class CSCI3170Proj {
                 System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
                 return false;
             } else {
-                java.util.Date checkout = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String qry = "insert into rent values ('" + userID + "', '" + callNum + "', " + copyNum + ", '"
-                        + formatter.format(checkout) + "', NULL)";
-                stmt.executeUpdate(qry);
-                qry = "UPDATE car SET time_rent = time_rent + 1 where callnum = '" + callNum + "'";
-                stmt.executeUpdate(qry);
-                return true;
-            }
-        } catch (SQLException e) {
-            System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
-            return false;
-        }
-    }
-
-    // return a car
-    public static boolean returnCar(Connection con, String userID, String callNum, int copyNum) {
-        try {
-            Statement stmt = con.createStatement();
-            String query = "SELECT * FROM rent WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = "
-                    + copyNum + " AND uid = '" + userID + "'";
-            ResultSet result = stmt.executeQuery(query);
-            if (!result.next()) {
-                System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
-                return false;
-            } else {
-                java.util.Date return_date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                String qry = "UPDATE rent SET return_date = '" + formatter.format(return_date)
-                        + "' WHERE return_date is NULL AND callnum = '" + callNum + "' AND copynum = " + copyNum
-                        + " AND uid = '" + userID + "'";
-                stmt.executeUpdate(qry);
-                return true;
+                String qry = "SELECT max FROM user, user_category WHERE user.ucid = user_category.ucid AND user.uid = " + userID;
+                ResultSet max = stmt.executeQuery(qry);
+                qry = "SELECT COUNT(*) AS car_rented FROM rent WHERE return_date = NULL GROUP BY uid HAVING uid = " + userID;
+                ResultSet car_rented = stmt.executeQuery(qry);
+                if (car_rented.next().getString("car_rented") == max.next().getString("max")) {
+                    System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m This user has rented the maximum number of cars.");
+                    return false;
+                } else {
+                    java.util.Date checkout = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    qry = "insert into rent values ('" + userID + "', '" + callNum + "', " + copyNum + ", '"
+                            + formatter.format(checkout) + "', NULL)";
+                    stmt.executeUpdate(qry);
+                    qry = "UPDATE car SET time_rent = time_rent + 1 where callnum = '" + callNum + "'";
+                    stmt.executeUpdate(qry);
+                    return true;
+                }
             }
         } catch (SQLException e) {
             System.out.println("[\u001B[31mError\u001B[0m]: \u001B[31mNo\u001B[0m Matching car copy found.");
